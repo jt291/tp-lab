@@ -1,0 +1,39 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["src/index.ts"],
+  "entryPointStrategy": "expand",
+  "out": "docs",
+  "plugin": [],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "node_modules/**"
+  ],
+  "excludePrivate": false,
+  "excludeProtected": false,
+  "excludeExternals": true,
+  "readme": "README.md",
+  "name": "@tp-lab/asciidoc",
+  "includeVersion": true,
+  "sort": ["source-order"],
+  "categorizeByGroup": true,
+  "defaultCategory": "Other",
+  "categoryOrder": [
+    "Main",
+    "Converters",
+    "Utilities",
+    "*"
+  ],
+  "searchInComments": true,
+  "searchInDocuments": true,
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true
+  },
+  "visibilityFilters": {
+    "protected": true,
+    "private":  false,
+    "inherited": true,
+    "external": false
+  }
+}

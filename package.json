@@ -1,0 +1,24 @@
+{
+  "name": "tp-lab",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Monorepo pour les outils pédagogiques TP",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "dev": "pnpm -r dev",
+    "clean": "pnpm -r clean && rm -rf node_modules"
+  },
+  "keywords": [
+    "tp",
+    "asciidoc",
+    "monorepo"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  }
+}

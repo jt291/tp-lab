@@ -1,0 +1,50 @@
+{
+  "name": "@tp-labo/asciidoc",
+  "version":  "0.0.1",
+  "description": "Version modifiée d'Asciidoctor. js avec HTML sémantique",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d. ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts":  {
+    "dev": "vite build --watch",
+    "build":  "tsc && vite build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage":  "vitest run --coverage",
+    "doc": "typedoc",
+    "doc:serve": "typedoc && npx serve docs",
+    "clean": "rm -rf dist docs"
+  },
+  "keywords": [
+    "asciidoc",
+    "asciidoctor",
+    "html",
+    "semantic"
+  ],
+  "author":  "",
+  "license": "MIT",
+  "dependencies": {
+    "@asciidoctor/core": "^3.0.4",
+    "prettier": "^3.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/prettier":  "^3.0.0",
+    "typedoc": "^0.25.7",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11",
+    "vite-plugin-dts": "^3.7.1",
+    "vitest": "^1.2.0"
+  }
+}
