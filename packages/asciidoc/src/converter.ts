@@ -15,6 +15,7 @@ import { convertParagraph } from './blocks/paragraph/paragraph.js';
 import { convertSection } from './blocks/section/section.js';
 import { convertUlist } from './blocks/ulist/ulist.js';
 import { convertOlist } from './blocks/olist/olist.js';
+import { convertLiteral } from './blocks/literal/literal.js';
 
 /**
  * Custom Asciidoctor converter that generates semantic HTML.
@@ -75,8 +76,12 @@ export class TpConverter {
       case 'inline_footnote':
         //html = convertInlineFootnote(node);
         break;
+      
       case 'listing':
         //html = convertListing(node as AbstractBlock);
+        break;
+      case 'literal':
+        html = convertLiteral(node as AbstractBlock);
         break;
       case 'paragraph':
         html = convertParagraph(node as AbstractBlock);
