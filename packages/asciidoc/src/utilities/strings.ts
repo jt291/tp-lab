@@ -1,3 +1,10 @@
+/**
+ * Utility functions for handling strings manipulation.
+ * 
+ * @module
+ * @category Utilities
+ */
+
 export function escapeHtml(text: string): string {
   const map:  Record<string, string> = {
     '&': '&amp;',

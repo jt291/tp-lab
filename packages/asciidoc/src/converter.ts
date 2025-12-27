@@ -76,9 +76,8 @@ export class TpConverter {
       case 'inline_footnote':
         //html = convertInlineFootnote(node);
         break;
-      
       case 'listing':
-        //html = convertListing(node as AbstractBlock);
+        html = convertListing(node as AbstractBlock);
         break;
       case 'literal':
         html = convertLiteral(node as AbstractBlock);

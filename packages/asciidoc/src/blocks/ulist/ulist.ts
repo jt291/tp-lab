@@ -2,8 +2,7 @@
  * Unordered list (ulist) block converter.
  * 
  * @module
- * @category Converters
- * @subcategory Blocks
+ * @category Blocks
  */
 
 import type { AbstractBlock, List, ListItem } from '@asciidoctor/core';

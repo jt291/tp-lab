@@ -1,3 +1,10 @@
+/**
+ * Formats HTML string using Prettier.
+ * 
+ * @module
+ * @category Formatting
+ */
+
 import prettier from 'prettier';
 
 /**

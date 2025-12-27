@@ -1,3 +1,10 @@
+/**
+ * Paragraph block converter.
+ * 
+ * @module
+ * @category Blocks
+ */
+
 import type { AbstractBlock } from '@asciidoctor/core';
 import {
   buildClassAttributeString,

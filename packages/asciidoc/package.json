@@ -1,5 +1,5 @@
 {
-  "name": "@tp-labo/asciidoc",
+  "name": "@tp-lab/asciidoc",
   "version":  "0.0.1",
   "description": "Version modifiée d'Asciidoctor.js avec HTML sémantique",
   "type": "module",
@@ -23,7 +23,8 @@
     "test:watch": "vitest",
     "test:coverage":  "vitest run --coverage",
     "doc": "typedoc",
-    "doc:serve": "typedoc && npx serve docs",
+    "doc:full": "typedoc --entryPoints src --entryPointStrategy expand",
+    "doc:serve": "pnpm doc:full && npx serve docs",
     "clean": "rm -rf dist docs"
   },
   "keywords": [

@@ -1,3 +1,10 @@
+/**
+ * Utility functions for handling Asciidoctor blocks attributes.
+ * 
+ * @module
+ * @category Utilities
+ */
+
 import type { AbstractBlock } from '@asciidoctor/core';
 import {
   buildIdAttributeString,
