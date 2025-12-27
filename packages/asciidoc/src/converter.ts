@@ -14,6 +14,7 @@ import { convertListing } from './blocks/listing/listing.js';
 import { convertParagraph } from './blocks/paragraph/paragraph.js';
 import { convertSection } from './blocks/section/section.js';
 import { convertUlist } from './blocks/ulist/ulist.js';
+import { convertOlist } from './blocks/olist/olist.js';
 
 /**
  * Custom Asciidoctor converter that generates semantic HTML.
@@ -66,25 +67,28 @@ export class TpConverter {
 
     switch (nodeName) {
       case 'dlist':
-        html = convertDlist(node as List);
+        //html = convertDlist(node as List);
         break;
       case 'inline_break':
-        html = convertInlineBreak(node);
+        //html = convertInlineBreak(node);
         break;
       case 'inline_footnote':
-        html = convertInlineFootnote(node);
+        //html = convertInlineFootnote(node);
         break;
       case 'listing':
-        html = convertListing(node as AbstractBlock);
+        //html = convertListing(node as AbstractBlock);
         break;
       case 'paragraph':
         html = convertParagraph(node as AbstractBlock);
         break;
       case 'section':
-        html = convertSection(node as Section);
+        //html = convertSection(node as Section);
         break;
       case 'ulist':
         html = convertUlist(node as List);
+        break;
+      case 'olist':
+        html = convertOlist(node as List);
         break;
       default:
         // Use base converter for unhandled node types

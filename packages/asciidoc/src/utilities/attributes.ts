@@ -64,15 +64,16 @@ export function buildClassAttributeString(
 /**
  * Builds additional HTML attributes string, excluding id, role, and title.
  * 
- * @summary Extracts custom attributes from the node and formats them as HTML attributes. 
+ * @summary Extracts custom attributes from the node and formats them as HTML attributes.
  * 
  * @param node - The Asciidoctor block node
  * @param additionalAttributes - Optional record of additional attributes to add
+ * @param excludeAttributes - Optional array of attribute names to exclude
  * @returns The formatted attributes string (e.g., ` data-test="value"`)
  * 
  * @example
  * ```typescript
- * // AsciiDoc: [data-test=value,aria-label=info]
+ * // AsciiDoc:  [data-test=value,aria-label=info]
  * buildOtherAttributesString(node) // Returns: ' data-test="value" aria-label="info"'
  * ```
  * 
@@ -81,19 +82,26 @@ export function buildClassAttributeString(
  * buildOtherAttributesString(node, { 'data-custom': 'extra' })
  * // Returns: ' data-test="value" data-custom="extra"'
  * ```
+ * 
+ * @example
+ * ```typescript
+ * buildOtherAttributesString(node, {}, ['style'])
+ * // Returns: ' data-test="value"' (style is excluded)
+ * ```
  */
 export function buildOtherAttributesString(
-  node:  AbstractBlock,
-  additionalAttributes: Record<string, string> = {}
+  node: AbstractBlock,
+  additionalAttributes:  Record<string, string> = {},
+  excludeAttributes:  string[] = []
 ): string {
   const allAttributes = { ...node.getAttributes(), ...additionalAttributes };
+  const defaultExclusions = ['id', 'role', 'title', '$positional'];
+  const allExclusions = [...defaultExclusions, ...excludeAttributes];
+  
   const attributesKeys = Object.keys(allAttributes).filter(
     attr =>
-      attr !== 'id' &&
-      attr !== 'role' &&
-      attr !== 'title' &&
-      attr !== '$positional' &&
-      ! attr.endsWith('-option')
+      !allExclusions. includes(attr) &&
+      !attr.endsWith('-option')
   );
 
   return attributesKeys
@@ -103,7 +111,6 @@ export function buildOtherAttributesString(
     })
     .join('');
 }
-
 /**
  * Extracts options from a node's attributes.
  * 
