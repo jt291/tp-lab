@@ -1,11 +1,13 @@
+/// <reference types="vitest" />
+
 import { defineConfig } from 'vite';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import dts from 'vite-plugin-dts';
 
 export default defineConfig({
   plugins: [
     dts({
-      insertTypesEntry:  true,
+      insertTypesEntry: true,
     }),
   ],
   build: {
@@ -16,11 +18,12 @@ export default defineConfig({
       fileName: (format) => `index.${format === 'es' ? 'js' : 'cjs'}`,
     },
     rollupOptions: {
-      external: ['@asciidoctor/core', 'prettier'],
-      output:  {
+      // externalize node: builtins and other runtime deps
+      external: [/^node:/, '@asciidoctor/core', 'prettier'],
+      output: {
         globals: {
           '@asciidoctor/core': 'Asciidoctor',
-          'prettier': 'prettier',
+          prettier: 'prettier',
         },
       },
     },
@@ -30,4 +33,5 @@ export default defineConfig({
   resolve: {
     conditions: ['node', 'browser'],
   },
+
 });

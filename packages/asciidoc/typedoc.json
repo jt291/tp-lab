@@ -31,12 +31,18 @@
     "includeGroups": true
   },
   "highlightLanguages": [
-    "typescript",
-    "javascript",
     "asciidoc",
-    "html",
     "bash",
-    "css"
+    "css",
+    "html",
+    "javascript",
+    "json",
+    "markdown",
+    "prolog",
+    "python",
+    "sql",
+    "typescript",
+    "yaml"
   ],
   "visibilityFilters": {
     "protected": true,

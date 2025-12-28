@@ -1,27 +1,28 @@
 {
   "name": "@tp-lab/asciidoc",
-  "version":  "0.0.1",
+  "version": "0.0.1",
   "description": "Version modifiée d'Asciidoctor.js avec HTML sémantique",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/index.d. ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     }
   },
   "files": [
     "dist"
   ],
-  "scripts":  {
+  "scripts": {
     "dev": "vite build --watch",
-    "build":  "tsc && vite build",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:coverage":  "vitest run --coverage",
+    "build": "tsc && vite build",
+    "test": "vitest",
+    "test:node": "vitest --project node",
+    "test:browser": "vitest --project browser --browser",
+    "test:coverage": "vitest run --coverage",
     "doc": "typedoc",
     "doc:full": "typedoc --entryPoints src --entryPointStrategy expand",
     "doc:serve": "pnpm doc:full && npx serve docs",
@@ -33,7 +34,7 @@
     "html",
     "semantic"
   ],
-  "author":  "",
+  "author": "",
   "license": "MIT",
   "dependencies": {
     "@asciidoctor/core": "^3.0.4",
@@ -41,11 +42,15 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
-    "@types/prettier":  "^3.0.0",
+    "@types/prettier": "^3.0.0",
+    "@vitest/browser-playwright": "^4.0.16",
+    "@vitest/coverage-istanbul": "4.0.16",
+    "happy-dom": "^20.0.11",
+    "playwright": "^1.57.0",
     "typedoc": "^0.25.7",
     "typescript": "^5.3.3",
     "vite": "^5.0.11",
     "vite-plugin-dts": "^3.7.1",
-    "vitest": "^1.2.0"
+    "vitest": "^4.0.16"
   }
 }

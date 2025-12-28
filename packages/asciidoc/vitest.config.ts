@@ -1,15 +1,48 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from "vitest/config";
+import { playwright } from "@vitest/browser-playwright";
 
 export default defineConfig({
   test: {
-    globals: true,
-    environment: 'node',
-    include: ['src/**/*.test.ts'], // 🔥 Chercher les tests partout dans src/
+    projects: [
+      // ✅ Tests Node
+      {
+        test: {
+          name: "node",
+          environment: "node",
+          globals: true,
+          include: ["src/**/*.test.ts"],
+          exclude: ["src/**/*.browser.test.ts"],
+        },
+      },
+      // ✅ Tests Browser
+      {
+        test: {
+          name: "browser",
+          globals: true,
+          include: ["src/**/*.browser.test.ts"],
+          browser: {
+            provider: playwright(),
+            enabled: true,
+            headless: true,
+            instances: [
+              { browser: "chromium" },
+              { browser: "webkit" },
+              { browser: "firefox" },
+            ],
+          },
+        },
+      },
+    ],
     coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
+      provider: 'istanbul',
+      reporter: ['text', 'html'],
       include: ['src/**/*.ts'],
-      exclude: ['src/**/*.test.ts', 'src/**/*.d.ts'],
-    },
+      exclude: [
+        'node_modules', 
+        'dist', 
+        'src/**/*.test.ts'
+      ]
+    }
   },
+  
 });

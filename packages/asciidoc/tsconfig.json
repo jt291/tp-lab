@@ -15,6 +15,7 @@
     "outDir": "./dist",
     "rootDir": "./src"
   },
+  "types": ["vitest", "node"],
   "include":  ["src/**/*"],
   "exclude": ["node_modules", "dist", "tests"]
 }
