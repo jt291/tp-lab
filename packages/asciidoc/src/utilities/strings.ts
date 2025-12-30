@@ -49,3 +49,21 @@ export function dedent(input: string): string {
   const prefix = ' '.repeat(minIndent);
   return lines.map(l => (l.startsWith(prefix) ? l.slice(minIndent) : l)).join('\n');
 }
+
+
+/**
+ * Capitalizes the first character of a string and converts the rest to lowercase.
+ * 
+ * @param str - The string to capitalize
+ * @returns The capitalized string with the first character in uppercase and remaining characters in lowercase
+ * 
+ * @example
+ * ```ts
+ * capitalize("hello") // returns "Hello"
+ * capitalize("WORLD") // returns "World"
+ * capitalize("hELLO wORLD") // returns "Hello world"
+ * ```
+ */
+export function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { convert } from '../../index.js';
 
-describe('Olist block', () => {
+describe('"olist" node conversion', () => {
   it('should convert a simple ordered list', () => {
     const input = `. a
 . b

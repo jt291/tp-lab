@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { convert } from '../../index.js';
 
-describe('Literal block', () => {
+describe('"literal" node conversion', () => {
   it('should convert a simple literal block', () => {
     const input = `.... 
 This is literal text

@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { convert } from '../../index.js';
 
-describe('Listing block', () => {
-  it('should convert a simple listing block', () => {
+describe('"listing" node conversion', () => {
+  it('should convert a simple listing node', () => {
     const input = `----
 Code goes here
 ----`;

@@ -1,0 +1,75 @@
+Je développe une version modifiée de asciidoctor.js (https://docs.asciidoctor.org/asciidoctor.js/latest/)
+afin de générer une sortie HTML, et seulement HTML, en utilisant directement les balises sémantiques HTML, 
+sans div encapsulatrices et sans utiliser de classes CSS particulières.
+Ma version actuelle est téléversée sur github (https://github.com/jt291/tp-lab.git).
+Je travaille en typescript dans l'environnement de développement 
+pnpm, git, prettier, vite, vitest, typedoc avec l'architecture suivante :
+.
+├── node_modules
+└── packages
+    ├── asciidoc
+    │   ├── coverage
+    │   ├── dist
+    │   ├── docs
+    │   │   └── api
+    │   ├── node_modules
+    │   ├── public
+    │   ├── scripts
+    │   └── src
+    │       ├── converter
+    │       ├── nodes
+    │       │   ├── listing
+    │       │   ├── literal
+    │       │   ├── olist
+    │       │   ├── paragraph
+    │       │   └── ulist
+    │       └── utilities
+    └── tp
+
+Pour ce faire, il faut convertir un certain nombre de noeuds Asciidoctor :
+« Here’s the complete list of node’s name:
+document
+embedded
+outline
+section
+admonition
+audio
+colist
+dlist
+example
+floating-title
+image
+listing
+literal
+stem
+olist
+open
+page_break
+paragraph
+preamble
+quote
+thematic_break
+sidebar
+table
+toc
+ulist
+verse
+video
+inline_anchor
+inline_break
+inline_button
+inline_callout
+inline_footnote
+inline_image
+inline_indexterm
+inline_kbd
+inline_menu
+inline_quoted
+»
+
+J'ai déjà effectué la conversion de quelques noeuds : 
+paragraph, ulist, olist, litteral et listing.
+Pour chaque noeud, je commente en anglais chaque fonction au format jsdoc/tsdoc,
+j'effectue des tests avec vitest (et playwright si besoin)
+et je regénère la documentation avec typedoc.
+

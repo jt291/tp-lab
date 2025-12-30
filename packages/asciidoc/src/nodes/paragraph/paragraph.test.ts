@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { convert } from '../../index.js';
 
-describe('Paragraph block', () => {
+describe('"paragraph" node conversion', () => {
   it('should convert a simple paragraph', () => {
     const input = 'Hello world';
     const output = convert(input);

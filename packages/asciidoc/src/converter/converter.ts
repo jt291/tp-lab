@@ -40,15 +40,6 @@ export class TpConverter {
     const nodeName = node.getNodeName();
 
     switch (nodeName) {
-      case 'dlist':
-        // html = convertDlist(node as List);
-        break;
-      case 'inline_break':
-        // html = convertInlineBreak(node);
-        break;
-      case 'inline_footnote':
-        // html = convertInlineFootnote(node);
-        break;
       case 'listing':
         html = nodes.convertListing(node as AbstractBlock);
         break;
@@ -58,15 +49,19 @@ export class TpConverter {
       case 'paragraph':
         html = nodes.convertParagraph(node as AbstractBlock);
         break;
-      case 'section':
-        // html = convertSection(node as Section);
-        break;
       case 'ulist':
         html = nodes.convertUlist(node as List);
         break;
       case 'olist':
         html = nodes.convertOlist(node as List);
         break;
+
+        case 'quote': 
+          html = nodes.convertQuote(node as AbstractBlock); 
+          break;
+
+        // NODE HANDLING PLACEHOLDER
+
       default:
         html = this.baseConverter.convert(node, transform);
     }

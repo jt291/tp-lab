@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { convert } from '../../index.js';
 
-describe('Ulist block', () => {
+describe('"ulist" node conversion', () => {
   it('should convert a simple unordered list', () => {
     const input = `* a
 * b

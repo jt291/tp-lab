@@ -10,3 +10,5 @@ export { convertLiteral } from '../nodes/literal/literal.js';
 export { convertParagraph } from '../nodes/paragraph/paragraph.js';
 export { convertUlist } from '../nodes/ulist/ulist.js';
 export { convertOlist } from '../nodes/olist/olist.js';
+export { convertQuote } from '../nodes/quote/quote.js';
+// NODE HANDLING PLACEHOLDER
