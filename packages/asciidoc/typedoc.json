@@ -2,12 +2,17 @@
   "$schema": "https://typedoc.org/schema.json",
   "entryPoints": ["src/index.ts"],
   "entryPointStrategy": "expand",
-  "out": "docs",
+  "out": "docs/api",
   "plugin": [],
   "exclude": [
     "**/*.test.ts",
     "**/*.spec.ts",
-    "node_modules/**"
+    "coverage/**",
+    "dist/**",
+    "docs/**",
+    "node_modules/**",
+    "public/**",
+    "scripts/**"
   ],
   "excludePrivate": false,
   "excludeProtected": false,

@@ -1,10 +1,10 @@
 # @tp-lab/asciidoc
 
-A custom Asciidoctor. js converter that generates clean, semantic HTML5 output. 
+A custom [Asciidoc](https://asciidoc.org) converter that generates clean, semantic HTML5 output. 
 
 ## Overview
 
-This package extends Asciidoctor.js with a custom converter (`TpConverter`) that produces more semantic HTML by: 
+This package extends [Asciidoctor.js](https://docs.asciidoctor.org/asciidoctor.js/latest/) with a custom converter (`TpConverter`) that produces more semantic HTML by: 
 
 - Removing unnecessary wrapper `<div>` elements
 - Using modern HTML5 semantic elements (`<details>`, `<summary>`, `<aside>`, etc.)
@@ -303,10 +303,10 @@ Contributions are welcome! Please:
 
 Jacques Tisseau (@jt291)
 
-## Related Projects
+## AsciiDoc
+- [AsciiDoc Language Documentation](https://docs.asciidoctor.org/asciidoc/latest/)
+- [AsciiDoc Syntax Quick Reference](https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/)
 
-- [Asciidoctor.js](https://github.com/asciidoctor/asciidoctor.js) - The underlying AsciiDoc processor
-- [Asciidoctor](https://asciidoctor.org/) - The main Asciidoctor project
 
 ---
 

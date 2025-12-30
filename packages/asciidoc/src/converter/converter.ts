@@ -9,11 +9,7 @@ import Asciidoctor from '@asciidoctor/core';
 import type { ProcessorOptions, Document as AsciidoctorDocument } from '@asciidoctor/core';
 import type { AbstractNode, AbstractBlock, Section, List, Html5Converter } from '@asciidoctor/core';
 
-import { convertListing } from '../blocks/listing/listing.js';
-import { convertLiteral } from '../blocks/literal/literal.js';
-import { convertParagraph } from '../blocks/paragraph/paragraph.js';
-import { convertUlist } from '../blocks/ulist/ulist.js';
-import { convertOlist } from '../blocks/olist/olist.js';
+import * as nodes from '../nodes/nodes.js';
 import { formatHtml } from '../utilities/format.js';
 import { dedent } from '../utilities/strings.js';
 
@@ -54,27 +50,26 @@ export class TpConverter {
         // html = convertInlineFootnote(node);
         break;
       case 'listing':
-        html = convertListing(node as AbstractBlock);
+        html = nodes.convertListing(node as AbstractBlock);
         break;
       case 'literal':
-        html = convertLiteral(node as AbstractBlock);
+        html = nodes.convertLiteral(node as AbstractBlock);
         break;
       case 'paragraph':
-        html = convertParagraph(node as AbstractBlock);
+        html = nodes.convertParagraph(node as AbstractBlock);
         break;
       case 'section':
         // html = convertSection(node as Section);
         break;
       case 'ulist':
-        html = convertUlist(node as List);
+        html = nodes.convertUlist(node as List);
         break;
       case 'olist':
-        html = convertOlist(node as List);
+        html = nodes.convertOlist(node as List);
         break;
       default:
         html = this.baseConverter.convert(node, transform);
     }
-
     return html;
   }
 }
@@ -83,6 +78,18 @@ export class TpConverter {
    Basic conversion APIs
    --------------------- */
 
+/**
+ * Converts AsciiDoc content to HTML string.
+ * 
+ * @param content - The AsciiDoc content to convert
+ * @param options - Optional processor options to configure the conversion behavior
+ * @returns The converted HTML as a string
+ * 
+ * @example
+ * ```typescript
+ * const html = convert('= My Document\n\nHello World!');
+ * ```
+ */
 export function convert(content: string, options: ProcessorOptions = {}): string {
   const html = asciidoctor.convert(content, {
     ...options,
@@ -92,6 +99,22 @@ export function convert(content: string, options: ProcessorOptions = {}): string
   return typeof html === 'string' ? html : String(html);
 }
 
+/**
+ * Converts AsciiDoc content to formatted HTML.
+ * 
+ * This function first converts the input content to HTML using the `convert` function,
+ * then formats the resulting HTML using the `formatHtml` function.
+ * 
+ * @param content - The AsciiDoc content string to be converted
+ * @param options - Optional processor configuration options for the conversion
+ * @returns A promise that resolves to the formatted HTML string
+ * 
+ * @example
+ * ```typescript
+ * const asciidoc = '= My Document\n\nSome content.';
+ * const html = await convertFormatted(asciidoc, { safe: 'safe' });
+ * ```
+ */
 export async function convertFormatted(
   content: string,
   options: ProcessorOptions = {}
@@ -284,8 +307,42 @@ export type RawValue<T> = {
   value: T;
 };
 
+/**
+ * Wraps a value in a RawValue container to mark it as raw content.
+ * 
+ * This function is used to indicate that a value should be treated as raw content
+ * and bypass any formatting or escaping that would normally be applied during
+ * AsciiDoc conversion.
+ * 
+ * @template T - The type of the value being wrapped
+ * @param value - The value to be marked as raw content
+ * @returns A RawValue object containing the original value with a raw content marker
+ * 
+ * @example
+ * ```typescript
+ * const rawHtml = raw('<div>Content</div>');
+ * // Returns: { __adoc_raw: true, value: '<div>Content</div>' }
+ * ```
+ */
 export const raw = <T,>(value: T): RawValue<T> => ({ __adoc_raw: true, value });
 
+/**
+ * Type guard that checks if a value is a RawValue object.
+ * 
+ * A RawValue is an object that contains the `__adoc_raw` property set to `true`,
+ * which is used to mark raw AsciiDoc content that should not be processed or escaped.
+ * 
+ * @param v - The value to check
+ * @returns `true` if the value is a RawValue object, `false` otherwise
+ * 
+ * @example
+ * ```typescript
+ * const rawContent = { __adoc_raw: true, value: '<html>' };
+ * if (isRawValue(rawContent)) {
+ *   // rawContent is typed as RawValue<unknown>
+ * }
+ * ```
+ */
 const isRawValue = (v: unknown): v is RawValue<unknown> =>
   typeof v === 'object' && v !== null && ('__adoc_raw' in v) && (v as Record<string, unknown>).__adoc_raw === true;
 
@@ -313,12 +370,51 @@ const buildSource = (strings: TemplateStringsArray, values: unknown[]): string =
   return dedent(out);
 };
 
+/**
+ * A tagged template literal function for processing AsciiDoc content.
+ * 
+ * @remarks
+ * This type defines a template tag that can be used to process AsciiDoc strings with interpolated values.
+ * It provides two additional methods:
+ * - `withOptions`: Creates a new tag function with custom processor options
+ * - `raw`: Wraps a value to prevent processing/escaping
+ * 
+ * @example
+ * ```typescript
+ * const result = adoc`= Title\n\nContent with ${variable}`;
+ * const customAdoc = adoc.withOptions({ safe: 'safe' });
+ * const rawValue = adoc.raw(unsafeContent);
+ * ```
+ * 
+ * @param strings - The template string parts
+ * @param values - The interpolated values
+ * @returns The processed AsciiDoc string
+ */
 export type AdocTag = {
   (strings: TemplateStringsArray, ...values: unknown[]): string;
   withOptions(options: ProcessorOptions): (strings: TemplateStringsArray, ...values: unknown[]) => string;
   raw<T>(value: T): RawValue<T>;
 };
 
+/**
+ * Template tag function for converting AsciiDoc content to HTML.
+ * 
+ * @remarks
+ * This function acts as a tagged template literal that processes AsciiDoc markup
+ * and converts it to HTML output. It combines template strings and interpolated
+ * values into a source string, then passes it through the conversion pipeline.
+ * 
+ * @param strings - The template strings array from the tagged template literal
+ * @param values - The interpolated values from the tagged template literal
+ * @returns The converted HTML output from the AsciiDoc source
+ * 
+ * @example
+ * ```typescript
+ * const html = adoc`= My Document
+ * 
+ * This is a paragraph with ${variable}.`;
+ * ```
+ */
 export const adoc = ((strings: TemplateStringsArray, ...values: unknown[]) => {
   const source = buildSource(strings, values);
   return convert(source);
