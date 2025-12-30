@@ -12,16 +12,23 @@ const basePath = 'src/nodes';
 const converterPath = 'src/converter/converter.ts';
 
 const nodeName = process.argv[2];
+const nodeDir = path.join(basePath, nodeName);
+const allNodesFile = path.join(basePath, 'nodes.ts');
+const nodeFile = path.join(nodeDir, `${nodeName}.ts`);
+const testFile = path.join(nodeDir, `${nodeName}.test.ts`);
 
 if (!nodeName) {
   console.error('Please provide the name of the node to create. Example: node create-node quote');
   process.exit(1);
 }
-
-const nodeDir = path.join(basePath, nodeName);
-const allNodesFile = path.join(basePath, 'nodes.ts');
-const nodeFile = path.join(nodeDir, `${nodeName}.ts`);
-const testFile = path.join(nodeDir, `${nodeName}.test.ts`);
+if (!/^[a-zA-Z]+$/.test(nodeName)) {
+  console.error('Invalid node name. Only alphabetic characters are allowed.');
+  process.exit(1);
+}
+if (fs.existsSync(nodeDir)) {
+  console.error(`Node "${nodeName}" already exists.`);
+  process.exit(1);
+}
 
 // Scaffold structure
 if (!fs.existsSync(nodeDir)) {
