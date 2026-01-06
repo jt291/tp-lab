@@ -5,7 +5,7 @@
  * @category Nodes
  */
 
-import type { AbstractBlock } from '@asciidoctor/core';
+import type { AbstractBlock } from '../../libs/asciidoctor.js';
 import {
   buildClassAttributeString,
   buildIdAttributeString,

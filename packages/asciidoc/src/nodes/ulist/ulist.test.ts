@@ -1,12 +1,14 @@
 import { describe, it, expect } from 'vitest';
-import { convert } from '../../index.js';
+import { TpAsciidoc } from '../../tp-asciidoc.js';
+
+const engine = new TpAsciidoc();
 
 describe('"ulist" node conversion', () => {
   it('should convert a simple unordered list', () => {
     const input = `* a
 * b
 * c`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('<ul>');
     expect(output).toContain('<li>a</li>');
@@ -20,7 +22,7 @@ describe('"ulist" node conversion', () => {
     const input = `[#mylist.custom]
 * item 1
 * item 2`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('id="mylist"');
     expect(output).toContain('class="custom"');
@@ -30,7 +32,7 @@ describe('"ulist" node conversion', () => {
     const input = `[data-list=test]
 * item 1
 * item 2`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('data-list="test"');
   });
@@ -39,9 +41,9 @@ describe('"ulist" node conversion', () => {
     const input = `.My List Title
 * item 1
 * item 2`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
-    expect(output).toContain('<h6>My List Title</h6>');
+    expect(output).toContain('<summary>My List Title</summary>');
   });
 
   it('should handle nested lists', () => {
@@ -49,7 +51,7 @@ describe('"ulist" node conversion', () => {
 ** a1
 ** a2
 * b`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('<ul>');
     expect(output).toContain('<li>a');
@@ -63,7 +65,7 @@ describe('"ulist" node conversion', () => {
     const input = `* *bold* text
 * _italic_ text
 * \`code\` text`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('<strong>bold</strong>');
     expect(output).toContain('<em>italic</em>');
@@ -75,7 +77,7 @@ describe('"ulist" node conversion', () => {
 .Toggle List
 * item 1
 * item 2`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('<details>');
     expect(output).toContain('<summary>Toggle List</summary>');
@@ -87,7 +89,7 @@ describe('"ulist" node conversion', () => {
 .Toggle List
 * item 1
 * item 2`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('<details open>');
     expect(output).toContain('<summary>Toggle List</summary>');
@@ -98,7 +100,7 @@ describe('"ulist" node conversion', () => {
 [#liste.custom%collapsible%open,data-test=value]
 * Premier item
 * Deuxième item`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('id="liste"');
     expect(output).toContain('class="custom"');

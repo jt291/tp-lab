@@ -35,8 +35,9 @@ import prettier from 'prettier';
 export async function formatHtml(html:  string): Promise<string> {
   return await prettier.format(html, {
     parser: 'html',
-    htmlWhitespaceSensitivity:  'css',
+    htmlWhitespaceSensitivity: 'css',
     printWidth: 120,
     tabWidth: 2,
   });
 }
+

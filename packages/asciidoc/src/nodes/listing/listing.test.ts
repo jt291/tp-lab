@@ -1,15 +1,17 @@
 import { describe, it, expect } from 'vitest';
-import { convert } from '../../index.js';
+import { TpAsciidoc } from '../../tp-asciidoc.js';
+
+const engine = new TpAsciidoc();
 
 describe('"listing" node conversion', () => {
   it('should convert a simple listing node', () => {
     const input = `----
 Code goes here
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toMatch(/<pre[^>]*>/);
-    expect(output).toContain('<code>');
+    expect(output).toMatch(/<code[^>]*>/);
     expect(output).toContain('Code goes here');
     expect(output).toContain('</code></pre>');
     expect(output).not.toContain('<div class="listingblock">');
@@ -21,7 +23,7 @@ function test() {
   return true;
 }
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('function test()');
     expect(output).toContain('  return true;');
@@ -32,9 +34,9 @@ function test() {
 ----
 console.log("Hello");
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
-    expect(output).toContain('<code class="language-javascript">');
+    expect(output).toContain('<code class="language-javascript" data-lang="javascript">');
     expect(output).toContain('console.log("Hello")');
   });
 
@@ -50,7 +52,7 @@ console.log("Hello");
 ----
 ${code}
 ----`;
-      const output = convert(input);
+      const output = engine.convert(input);
       expect(output).toContain(`class="language-${lang}"`);
       expect(output).toContain(code);
     }
@@ -62,7 +64,7 @@ ${code}
   <body>Content & more</body>
 </html>
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('&lt;html&gt;');
     expect(output).toContain('&lt;body&gt;');
@@ -75,7 +77,7 @@ ${code}
 ----
 code here
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('id="mycode"');
     expect(output).toContain('class="highlight"');
@@ -86,7 +88,7 @@ code here
 ----
 const x = 42;
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('data-line="5"');
     expect(output).toContain('class="language-javascript"');
@@ -98,9 +100,9 @@ const x = 42;
 ----
 print("test")
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
-    expect(output).toContain('<h6>My Code Example</h6>');
+    expect(output).toContain('<summary>My Code Example</summary>');
     expect(output).toContain('<pre');
     expect(output).toContain('class="language-python"');
   });
@@ -110,10 +112,9 @@ print("test")
 Plain code block
 No language specified
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
-    expect(output).toContain('<code>');
-    expect(output).not.toContain('class="language-');
+    expect(output).toContain('<code class="language-plaintext" data-lang="plaintext">');
     expect(output).toContain('Plain code block');
   });
 
@@ -124,7 +125,7 @@ function first() {}
 
 function second() {}
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('function first()');
     expect(output).toContain('function second()');
@@ -137,22 +138,22 @@ function second() {}
 ----
 alert("Hello");
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('<details>');
     expect(output).toContain('<summary>Show Code</summary>');
-    expect(output).toContain('<code class="language-javascript">');
+    expect(output).toContain('<code class="language-javascript" data-lang="javascript">');
     expect(output).not.toContain('details open');
   });
 
-  it('should convert collapsible listing block (open)', () => {
+  it('should engine.convert collapsible listing block (open)', () => {
     const input = `[%collapsible%open]
 .Code Sample
 [source,python]
 ----
 print("test")
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('<details open>');
     expect(output).toContain('<summary>Code Sample</summary>');
@@ -166,10 +167,10 @@ print("test")
 ----
 const express = require('express');
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('id="server"');
-    expect(output).toContain('class="backend"');
+    expect(output).toContain('class="backend highlight"');
     expect(output).toContain('data-file="server.js"');
     expect(output).toContain('<details open>');
     expect(output).toContain('<summary>Server Code</summary>');
@@ -182,7 +183,7 @@ const express = require('express');
 const msg = "Hello & 'Goodbye'";
 if (x < 10 && y > 5) {}
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('&amp;');
     expect(output).toContain('&lt;');
@@ -194,7 +195,7 @@ if (x < 10 && y > 5) {}
 *This should not be bold*
 _This should not be italic_
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('*This should not be bold*');
     expect(output).toContain('_This should not be italic_');
@@ -208,7 +209,7 @@ _This should not be italic_
 line1();
 line2();
 ----`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('class="language-javascript"');
     expect(output).toContain('line1()');

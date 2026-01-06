@@ -1,0 +1,44 @@
+/* article style overrides for tp-addon */
+article {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+article > * {
+  width: 100%;
+  box-sizing: border-box;
+}
+article > summary {
+  display: inline;
+  color: var(--accent);
+}
+
+pre {
+  margin: 0;
+  padding: 0.5rem;
+  border: none;
+  box-sizing: border-box;
+  background-color: none !important;
+}
+/* Indent guides for Shiki code blocks */
+pre.shiki .indent {
+  display: inline-block;
+  position: relative;
+  left: var(--indent-offset, 2px);
+}
+
+pre.shiki .indent:empty {
+  height: 1lh;
+  vertical-align: bottom;
+}
+
+pre.shiki .indent::before {
+  content: '';
+  position: absolute;
+  opacity: 0.15;
+  width: 1px;
+  height: 100%;
+  background-color: currentColor;
+}

@@ -1,0 +1,478 @@
+@layer tp {
+  /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  //  Light & dark shared properties
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+  :root,
+  .tp-light,
+  .tp-dark {
+    /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    //  These base tokens are used to seed the color palettes. For best results, always use a midtone color such as any
+    //  of the 500-level colors from:
+    //
+    //  https://color.surf/
+    //
+    //  For best results, avoid using seed colors in your own stylesheets!
+    //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+    --tp-primary-seed: purple; /**#a855f7*/ /*#989cff;*/
+    --tp-neutral-seed: #918c87; /* stone */
+    --tp-constructive-seed: #5dbb55;
+    --tp-success-seed: green;/*#5dbb55;*/
+    --tp-destructive-seed: #ef5655;
+    --tp-danger-seed: red;/*#ef5655;*/
+    --tp-warning-seed: orange;/*#f08039*//*#f5a623;*/
+
+    /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    //  The following design tokens are shared by both the light and dark theme. Color tokens are specific to light and
+    //  dark mode, so they appear later on.
+    //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+    --tp-content-spacing: 1.75rem;
+    --tp-font-family: system-ui, sans-serif;
+    --tp-font-family-heading: var(--tp-font-family);
+    --tp-font-family-code: SFMono-Regular, Consolas, Menlo, Monaco, 'liberation mono', 'Courier New', monospace;
+    --tp-font-size: 16px;
+    --tp-font-weight-normal: 400;
+    --tp-font-weight-semibold: 500;
+    --tp-font-weight-bold: 700;
+    --tp-line-height: 1.6;
+    --tp-focus-width: 3px;
+    --tp-focus-offset: 1px;
+    --tp-backdrop-filter: blur(6px);
+
+    /* Border tokens */
+    --tp-border-style: solid;
+    --tp-border-width: 1px;
+    --tp-border-radius-xs: 0.1875rem; /* 3px */
+    --tp-border-radius-sm: 0.25rem; /* 4px */
+    --tp-border-radius-md: 0.375rem; /* 6px */
+    --tp-border-radius-lg: 0.5625rem; /* 9px */
+    --tp-border-radius-xl: 0.75rem; /* 12px */
+    --tp-border-radius-pill: 9999px;
+    --tp-border-radius-circle: 50%;
+
+    /* Form control tokens */
+    --tp-form-control-height-xs: 1.75rem;
+    --tp-form-control-height-sm: 2.25rem;
+    --tp-form-control-height-md: 2.75rem;
+    --tp-form-control-height-lg: 3.25rem;
+    --tp-form-control-height-xl: 3.75rem;
+    --tp-form-control-font-size-xs: 0.75rem;
+    --tp-form-control-font-size-sm: 0.875rem;
+    --tp-form-control-font-size-md: 1rem;
+    --tp-form-control-font-size-lg: 1.25rem;
+    --tp-form-control-font-size-xl: 1.5rem;
+    --tp-form-control-required-content: '*';
+    --tp-form-control-placeholder-color: color-mix(in oklab, var(--tp-text-muted), transparent 25%);
+    --tp-button-active-offset: 1px;
+
+    /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    //  The color palettes below are generated from the seed colors. The palettes remain static in both light and dark
+    //  mode, so 100 is always light and 900 is always dark. If you plan on supporting dark mode, you should avoid using
+    //  these primitives and use the color tokens shown in the docs instead.
+    //
+    //  You probably shouldn't think about changing these but, but if you do venture into such territory, it will
+    //  probably be helpful to use the palettes from:
+    //
+    //  https://color.surf/
+    //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+    --tp-primary-50: color-mix(in oklab, var(--tp-primary-seed), white 95%);
+    --tp-primary-100: color-mix(in oklab, var(--tp-primary-seed), white 87%);
+    --tp-primary-200: color-mix(in oklab, var(--tp-primary-seed), white 70%);
+    --tp-primary-300: color-mix(in oklab, var(--tp-primary-seed), white 47%);
+    --tp-primary-400: color-mix(in oklab, var(--tp-primary-seed), white 23%);
+    --tp-primary-500: var(--tp-primary-seed);
+    --tp-primary-600: color-mix(in oklab, var(--tp-primary-seed), black 15.5%);
+    --tp-primary-700: color-mix(in oklab, var(--tp-primary-seed), black 28.25%);
+    --tp-primary-800: color-mix(in oklab, var(--tp-primary-seed), black 43.5%);
+    --tp-primary-900: color-mix(in oklab, var(--tp-primary-seed), black 58.5%);
+    --tp-primary-950: color-mix(in oklab, var(--tp-primary-seed), black 73.75%);
+
+    --tp-neutral-50: color-mix(in oklab, var(--tp-neutral-seed), white 95%);
+    --tp-neutral-100: color-mix(in oklab, var(--tp-neutral-seed), white 87%);
+    --tp-neutral-200: color-mix(in oklab, var(--tp-neutral-seed), white 70%);
+    --tp-neutral-300: color-mix(in oklab, var(--tp-neutral-seed), white 47%);
+    --tp-neutral-400: color-mix(in oklab, var(--tp-neutral-seed), white 23%);
+    --tp-neutral-500: var(--tp-neutral-seed);
+    --tp-neutral-600: color-mix(in oklab, var(--tp-neutral-seed), black 15.5%);
+    --tp-neutral-700: color-mix(in oklab, var(--tp-neutral-seed), black 28.25%);
+    --tp-neutral-800: color-mix(in oklab, var(--tp-neutral-seed), black 43.5%);
+    --tp-neutral-900: color-mix(in oklab, var(--tp-neutral-seed), black 58.5%);
+    --tp-neutral-950: color-mix(in oklab, var(--tp-neutral-seed), black 73.75%);
+
+    --tp-constructive-50: color-mix(in oklab, var(--tp-constructive-seed), white 95%);
+    --tp-constructive-100: color-mix(in oklab, var(--tp-constructive-seed), white 87%);
+    --tp-constructive-200: color-mix(in oklab, var(--tp-constructive-seed), white 70%);
+    --tp-constructive-300: color-mix(in oklab, var(--tp-constructive-seed), white 47%);
+    --tp-constructive-400: color-mix(in oklab, var(--tp-constructive-seed), white 23%);
+    --tp-constructive-500: var(--tp-constructive-seed);
+    --tp-constructive-600: color-mix(in oklab, var(--tp-constructive-seed), black 15.5%);
+    --tp-constructive-700: color-mix(in oklab, var(--tp-constructive-seed), black 28.25%);
+    --tp-constructive-800: color-mix(in oklab, var(--tp-constructive-seed), black 43.5%);
+    --tp-constructive-900: color-mix(in oklab, var(--tp-constructive-seed), black 58.5%);
+    --tp-constructive-950: color-mix(in oklab, var(--tp-constructive-seed), black 73.75%);
+
+    --tp-success-50: color-mix(in oklab, var(--tp-success-seed), white 95%);
+    --tp-success-100: color-mix(in oklab, var(--tp-success-seed), white 87%);
+    --tp-success-200: color-mix(in oklab, var(--tp-success-seed), white 70%);
+    --tp-success-300: color-mix(in oklab, var(--tp-success-seed), white 47%);
+    --tp-success-400: color-mix(in oklab, var(--tp-success-seed), white 23%);
+    --tp-success-500: var(--tp-success-seed);
+    --tp-success-600: color-mix(in oklab, var(--tp-success-seed), black 15.5%);
+    --tp-success-700: color-mix(in oklab, var(--tp-success-seed), black 28.25%);
+    --tp-success-800: color-mix(in oklab, var(--tp-success-seed), black 43.5%);
+    --tp-success-900: color-mix(in oklab, var(--tp-success-seed), black 58.5%);
+    --tp-success-950: color-mix(in oklab, var(--tp-success-seed), black 73.75%);
+
+    --tp-warning-50: color-mix(in oklab, var(--tp-warning-seed), white 95%);
+    --tp-warning-100: color-mix(in oklab, var(--tp-warning-seed), white 87%);
+    --tp-warning-200: color-mix(in oklab, var(--tp-warning-seed), white 70%);
+    --tp-warning-300: color-mix(in oklab, var(--tp-warning-seed), white 47%);
+    --tp-warning-400: color-mix(in oklab, var(--tp-warning-seed), white 23%);
+    --tp-warning-500: var(--tp-warning-seed);
+    --tp-warning-600: color-mix(in oklab, var(--tp-warning-seed), black 15.5%);
+    --tp-warning-700: color-mix(in oklab, var(--tp-warning-seed), black 28.25%);
+    --tp-warning-800: color-mix(in oklab, var(--tp-warning-seed), black 43.5%);
+    --tp-warning-900: color-mix(in oklab, var(--tp-warning-seed), black 58.5%);
+    --tp-warning-950: color-mix(in oklab, var(--tp-warning-seed), black 73.75%);
+
+    --tp-destructive-50: color-mix(in oklab, var(--tp-destructive-seed), white 95%);
+    --tp-destructive-100: color-mix(in oklab, var(--tp-destructive-seed), white 87%);
+    --tp-destructive-200: color-mix(in oklab, var(--tp-destructive-seed), white 70%);
+    --tp-destructive-300: color-mix(in oklab, var(--tp-destructive-seed), white 47%);
+    --tp-destructive-400: color-mix(in oklab, var(--tp-destructive-seed), white 23%);
+    --tp-destructive-500: var(--tp-destructive-seed);
+    --tp-destructive-600: color-mix(in oklab, var(--tp-destructive-seed), black 15.5%);
+    --tp-destructive-700: color-mix(in oklab, var(--tp-destructive-seed), black 28.25%);
+    --tp-destructive-800: color-mix(in oklab, var(--tp-destructive-seed), black 43.5%);
+    --tp-destructive-900: color-mix(in oklab, var(--tp-destructive-seed), black 58.5%);
+    --tp-destructive-950: color-mix(in oklab, var(--tp-destructive-seed), black 73.75%);
+
+    --tp-danger-50: color-mix(in oklab, var(--tp-danger-seed), white 95%);
+    --tp-danger-100: color-mix(in oklab, var(--tp-danger-seed), white 87%);
+    --tp-danger-200: color-mix(in oklab, var(--tp-danger-seed), white 70%);
+    --tp-danger-300: color-mix(in oklab, var(--tp-danger-seed), white 47%);
+    --tp-danger-400: color-mix(in oklab, var(--tp-danger-seed), white 23%);
+    --tp-danger-500: var(--tp-danger-seed);
+    --tp-danger-600: color-mix(in oklab, var(--tp-danger-seed), black 15.5%);
+    --tp-danger-700: color-mix(in oklab, var(--tp-danger-seed), black 28.25%);
+    --tp-danger-800: color-mix(in oklab, var(--tp-danger-seed), black 43.5%);
+    --tp-danger-900: color-mix(in oklab, var(--tp-danger-seed), black 58.5%);
+    --tp-danger-950: color-mix(in oklab, var(--tp-danger-seed), black 73.75%);
+  }
+
+  /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  //  Light theme colors
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+  :root,
+  .tp-light {
+    color-scheme: light;
+
+    --tp-silent: white;
+    --tp-strident: black;
+    --tp-background-color: white;
+    --tp-paper-color: white;
+    --tp-text-body: var(--tp-neutral-900);
+    --tp-text-muted: var(--tp-neutral-600);
+    --tp-focus-color: var(--tp-primary-fill-mid);
+    --tp-focus-ring: var(--tp-border-style) var(--tp-focus-width) var(--tp-focus-color);
+    --tp-backdrop-color: rgb(0 0 0 / 0.25);
+    --tp-selection-background-color: var(--tp-primary-300);
+    --tp-selection-color: var(--tp-text-body);
+    --tp-shadow-color: black;
+    --tp-shadow-softer: 0 0.0625rem 0.0625rem color-mix(in oklab, transparent, var(--tp-shadow-color) 4%);
+    --tp-shadow-soft: 0 0.125rem 0.1875rem color-mix(in oklab, transparent, var(--tp-shadow-color) 8%);
+    --tp-shadow-mid: 0 0.1875rem 0.375rem color-mix(in oklab, transparent, var(--tp-shadow-color) 10%);
+    --tp-shadow-loud: 0 0.375rem 0.75rem color-mix(in oklab, transparent, var(--tp-shadow-color) 12%);
+    --tp-shadow-louder: 0 0.5rem 1rem color-mix(in oklab, transparent, var(--tp-shadow-color) 14%);
+    --tp-inset-shadow-softer: inset 0 0.125rem 0.125rem -0.125rem color-mix(in oklab, black, transparent 94%);
+    --tp-inset-shadow-soft: inset 0 0.25rem 0.25rem -0.25rem color-mix(in oklab, black, transparent 90%);
+    --tp-inset-shadow-mid: inset 0 0.5rem 0.5rem -0.5rem color-mix(in oklab, black, transparent 88%);
+    --tp-inset-shadow-loud: inset 0 1rem 1rem -1rem color-mix(in oklab, black, transparent 85%);
+    --tp-inset-shadow-louder: inset 0 1.5rem 1.5rem -1.5rem color-mix(in oklab, black, transparent 82%);
+
+    /* Primary */
+    --tp-primary-fill-softer: var(--tp-primary-100);
+    --tp-primary-fill-soft: var(--tp-primary-200);
+    --tp-primary-fill-mid: color-mix(in oklab, var(--tp-primary-600), black 2.5%);
+    --tp-primary-fill-loud: var(--tp-primary-800);
+    --tp-primary-fill-louder: var(--tp-primary-900);
+    --tp-primary-text-on-soft: var(--tp-primary-900);
+    --tp-primary-text-on-mid: white;
+    --tp-primary-text-on-loud: white;
+    --tp-primary-text-colorful: color-mix(in oklab, var(--tp-primary-600), black 12.5%);
+    --tp-primary-stroke-softer: color-mix(in oklab, var(--tp-primary-100), black 3%);
+    --tp-primary-stroke-soft: var(--tp-primary-300);
+    --tp-primary-stroke-mid: var(--tp-primary-500);
+
+    /* Neutral */
+    --tp-neutral-fill-softer: var(--tp-neutral-100);
+    --tp-neutral-fill-soft: var(--tp-neutral-200);
+    --tp-neutral-fill-mid: color-mix(in oklab, var(--tp-neutral-600), black 2.5%);
+    --tp-neutral-fill-loud: var(--tp-neutral-800);
+    --tp-neutral-fill-louder: var(--tp-neutral-900);
+    --tp-neutral-text-on-soft: var(--tp-neutral-900);
+    --tp-neutral-text-on-mid: white;
+    --tp-neutral-text-on-loud: white;
+    --tp-neutral-text-colorful: color-mix(in oklab, var(--tp-neutral-600), black 12.5%);
+    --tp-neutral-stroke-softer: color-mix(in oklab, var(--tp-neutral-100), black 3%);
+    --tp-neutral-stroke-soft: var(--tp-neutral-300);
+    --tp-neutral-stroke-mid: var(--tp-neutral-500);
+
+    /* Constructive */
+    --tp-constructive-fill-softer: var(--tp-constructive-100);
+    --tp-constructive-fill-soft: var(--tp-constructive-200);
+    --tp-constructive-fill-mid: color-mix(in oklab, var(--tp-constructive-600), black 2.5%);
+    --tp-constructive-fill-loud: var(--tp-constructive-800);
+    --tp-constructive-fill-louder: var(--tp-constructive-900);
+    --tp-constructive-text-on-soft: var(--tp-constructive-900);
+    --tp-constructive-text-on-mid: white;
+    --tp-constructive-text-on-loud: white;
+    --tp-constructive-text-colorful: color-mix(in oklab, var(--tp-constructive-600), black 12.5%);
+    --tp-constructive-stroke-softer: color-mix(in oklab, var(--tp-constructive-100), black 3%);
+    --tp-constructive-stroke-soft: var(--tp-constructive-300);
+    --tp-constructive-stroke-mid: var(--tp-constructive-500);
+
+    /* Destructive */
+    --tp-destructive-fill-softer: var(--tp-destructive-100);
+    --tp-destructive-fill-soft: var(--tp-destructive-200);
+    --tp-destructive-fill-mid: color-mix(in oklab, var(--tp-destructive-600), black 2.5%);
+    --tp-destructive-fill-loud: var(--tp-destructive-800);
+    --tp-destructive-fill-louder: var(--tp-destructive-900);
+    --tp-destructive-text-on-soft: var(--tp-destructive-900);
+    --tp-destructive-text-on-mid: white;
+    --tp-destructive-text-on-loud: white;
+    --tp-destructive-text-colorful: color-mix(in oklab, var(--tp-destructive-600), black 12.5%);
+    --tp-destructive-stroke-softer: color-mix(in oklab, var(--tp-destructive-100), black 3%);
+    --tp-destructive-stroke-soft: var(--tp-destructive-300);
+    --tp-destructive-stroke-mid: var(--tp-destructive-500);
+  }
+
+  /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  //  Dark theme colors
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+  .tp-dark {
+    color-scheme: dark;
+
+    --tp-silent: black;
+    --tp-strident: white;
+    --tp-background-color: var(--tp-neutral-950);
+    --tp-paper-color: color-mix(in oklab, var(--tp-neutral-950), white 2.5%);
+    --tp-text-body: var(--tp-neutral-200);
+    --tp-text-muted: var(--tp-neutral-500);
+    --tp-focus-color: var(--tp-primary-fill-mid);
+    --tp-focus-ring: var(--tp-border-style) var(--tp-focus-width) var(--tp-focus-color);
+    --tp-backdrop-color: rgb(0 0 0 / 0.5);
+    --tp-selection-background-color: var(--tp-primary-700);
+    --tp-selection-color: var(--tp-text-body);
+    --tp-shadow-color: black;
+    --tp-shadow-softer: 0 1px 2px color-mix(in oklab, transparent, var(--tp-shadow-color) 8%);
+    --tp-shadow-soft: 0 2px 4px color-mix(in oklab, transparent, var(--tp-shadow-color) 12%);
+    --tp-shadow-mid: 0 4px 8px color-mix(in oklab, transparent, var(--tp-shadow-color) 16%);
+    --tp-shadow-loud: 0 8px 16px color-mix(in oklab, transparent, var(--tp-shadow-color) 20%);
+    --tp-shadow-louder: 0 12px 20px color-mix(in oklab, transparent, var(--tp-shadow-color) 24%);
+
+    /* Primary */
+    --tp-primary-fill-softer: color-mix(in oklab, var(--tp-primary-900), white 1%);
+    --tp-primary-fill-soft: var(--tp-primary-800);
+    --tp-primary-fill-mid: color-mix(in oklab, var(--tp-primary-600), black 7.5%);
+    --tp-primary-fill-loud: var(--tp-primary-200);
+    --tp-primary-fill-louder: var(--tp-primary-100);
+    --tp-primary-text-on-soft: var(--tp-primary-100);
+    --tp-primary-text-on-mid: white;
+    --tp-primary-text-on-loud: black;
+    --tp-primary-text-colorful: var(--tp-primary-500);
+    --tp-primary-stroke-softer: color-mix(in oklab, var(--tp-primary-900), white 7.5%);
+    --tp-primary-stroke-soft: var(--tp-primary-800);
+    --tp-primary-stroke-mid: var(--tp-primary-600);
+
+    /* Neutral */
+    --tp-neutral-fill-softer: color-mix(in oklab, var(--tp-neutral-900), white 1%);
+    --tp-neutral-fill-soft: var(--tp-neutral-800);
+    --tp-neutral-fill-mid: color-mix(in oklab, var(--tp-neutral-600), black 7.5%);
+    --tp-neutral-fill-loud: var(--tp-neutral-200);
+    --tp-neutral-fill-louder: var(--tp-neutral-100);
+    --tp-neutral-text-on-soft: var(--tp-neutral-100);
+    --tp-neutral-text-on-mid: white;
+    --tp-neutral-text-on-loud: black;
+    --tp-neutral-text-colorful: var(--tp-neutral-500);
+    --tp-neutral-stroke-softer: color-mix(in oklab, var(--tp-neutral-900), white 7.5%);
+    --tp-neutral-stroke-soft: var(--tp-neutral-800);
+    --tp-neutral-stroke-mid: var(--tp-neutral-600);
+
+    /* Constructive */
+    --tp-constructive-fill-softer: color-mix(in oklab, var(--tp-constructive-900), white 1%);
+    --tp-constructive-fill-soft: var(--tp-constructive-800);
+    --tp-constructive-fill-mid: color-mix(in oklab, var(--tp-constructive-600), black 8%);
+    --tp-constructive-fill-loud: var(--tp-constructive-200);
+    --tp-constructive-fill-louder: var(--tp-constructive-100);
+    --tp-constructive-text-on-soft: var(--tp-constructive-100);
+    --tp-constructive-text-on-mid: white;
+    --tp-constructive-text-on-loud: black;
+    --tp-constructive-text-colorful: var(--tp-constructive-500);
+    --tp-constructive-stroke-softer: color-mix(in oklab, var(--tp-constructive-900), white 7.5%);
+    --tp-constructive-stroke-soft: var(--tp-constructive-800);
+    --tp-constructive-stroke-mid: var(--tp-constructive-600);
+
+    /* Destructive */
+    --tp-destructive-fill-softer: color-mix(in oklab, var(--tp-destructive-900), white 1%);
+    --tp-destructive-fill-soft: var(--tp-destructive-800);
+    --tp-destructive-fill-mid: color-mix(in oklab, var(--tp-destructive-600), black 7.5%);
+    --tp-destructive-fill-loud: var(--tp-destructive-200);
+    --tp-destructive-fill-louder: var(--tp-destructive-100);
+    --tp-destructive-text-on-soft: var(--tp-destructive-100);
+    --tp-destructive-text-on-mid: white;
+    --tp-destructive-text-on-loud: black;
+    --tp-destructive-text-colorful: var(--tp-destructive-500);
+    --tp-destructive-stroke-softer: color-mix(in oklab, var(--tp-destructive-900), white 7.5%);
+    --tp-destructive-stroke-soft: var(--tp-destructive-800);
+    --tp-destructive-stroke-mid: var(--tp-destructive-600);
+  }
+
+  /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  //  Global styles to support nested themes
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+  /* Ensure the body color is set correctly when applying these classes to specific elements */
+  .tp-light,
+  .tp-dark {
+    color: var(--tp-text-body);
+  }
+
+  /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  //  Guaranteed utilities
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+  /*
+    The cloak utility to reduce FOUCE when using the autoloader. This approach hides any element with the `tp-cloak`
+    class that has an undefined custom element until a) all elements are defined or b) two seconds has elapsed, ensuring
+    the content is never hidden for too long in the case of slow or troublesome networks.
+  */
+  .tp-cloak:has(:not(:defined)) {
+    animation: 2s step-end tpCloakAnimation;
+  }
+
+  @keyframes tpCloakAnimation {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  //  Built-in presets
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+  .tp-default {
+    --tp-primary-seed: #989cff;
+  }
+
+  .tp-red {
+    --tp-primary-seed: #ef5655;
+    --tp-destructive-seed: #e89a26; /* to differentiate better */
+  }
+
+  .tp-orange {
+    --tp-primary-seed: #f08039;
+  }
+
+  .tp-amber {
+    --tp-primary-seed: #e89a26;
+  }
+
+  .tp-yellow {
+    --tp-primary-seed: #dcb31e;
+  }
+
+  .tp-lime {
+    --tp-primary-seed: #9abb28;
+  }
+
+  .tp-green {
+    --tp-primary-seed: #5dbb55;
+  }
+
+  .tp-emerald {
+    --tp-primary-seed: #47b873;
+  }
+
+  .tp-teal {
+    --tp-primary-seed: #37b995;
+  }
+
+  .tp-glaz {
+    --tp-primary-seed: #88B1A1;
+  }
+
+  .tp-cyan {
+    --tp-primary-seed: #20b8bc;
+  }
+
+  .tp-sky {
+    --tp-primary-seed: #1caedd;
+  }
+
+  .tp-blue {
+    --tp-primary-seed: #4a97f4;
+  }
+
+  .tp-indigo {
+    --tp-primary-seed: #6e85f8;
+  }
+
+  .tp-violet {
+    --tp-primary-seed: #927cfb;
+  }
+
+  .tp-purple {
+    --tp-primary-seed: #ae75f6;
+  }
+
+  .tp-fuchsia {
+    --tp-primary-seed: #d26ae8;
+  }
+
+  .tp-pink {
+    --tp-primary-seed: #e468b0;
+  }
+
+  .tp-rose {
+    --tp-primary-seed: #ee6383;
+    --tp-destructive-seed: #e89a26; /* to differentiate better */
+  }
+
+  .tp-zinc {
+    --tp-primary-seed: #8b8c93;
+  }
+
+  .tp-ivory {
+    --tp-primary-seed: #fffff0;
+  }
+
+  .tp-stone {
+    --tp-primary-seed: #918c87;
+  }
+}

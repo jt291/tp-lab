@@ -5,7 +5,7 @@
  * @category Nodes
  */
 
-import type { AbstractBlock, List, ListItem } from '@asciidoctor/core';
+import type { List, ListItem } from '../../libs/asciidoctor.js';
 import {
   buildIdAttributeString,
   buildClassAttributeString,
@@ -54,35 +54,51 @@ import {
  * ```
  */
 export function convertUlist(node: List): string {
-  const idAttribute = buildIdAttributeString(node);
-  const classAttribute = buildClassAttributeString(node);
-  const otherAttributes = buildOtherAttributesString(node);
   const title = buildTitleMarkup(node);
-
-  const items = node.getItems();
-  const itemsHtml = items.map(item => convertListItem(item as ListItem)).join('\n');
-
+  const style = node.getStyle()
+  let html = ''
+  switch (style) {
+    case 'menu':
+      html += convertMenuList(node);
+      break;
+    default:
+      html += convertDefault(node);
+      break;
+  }
   // Collapsible list (using HTML <details> element)
   if (hasOption(node, 'collapsible')) {
     const isOpen = hasOption(node, 'open');
-    const summaryTitle = node.getTitle() || 'Details';
-
-    return `
-${title ?  `<h6>${summaryTitle}</h6>` : ''}
-<details${isOpen ? ' open' : ''}>
-  <summary>${summaryTitle}</summary>
-  <ul${idAttribute}${classAttribute}${otherAttributes}>
-${itemsHtml}
-  </ul>
-</details>`.trim();
+    const summaryTitle = title || '<summary>Details</summary>';
+    return `<details${isOpen ? ' open' : ''}>
+${summaryTitle}
+${html}
+</details>
+`;
   }
-
   // Standard unordered list
-  return `
-${title}
-<ul${idAttribute}${classAttribute}${otherAttributes}>
-${itemsHtml}
-</ul>`.trim();
+  return `${title}
+${html}
+`;
+}
+
+export function convertDefault(node: List): string {
+  const idAttribute = buildIdAttributeString(node);
+  const classAttribute = buildClassAttributeString(node);
+  const otherAttributes = buildOtherAttributesString(node);
+  const items = node.getItems()
+  const itemsHtml = items.map(item => convertListItem(item as ListItem)).join('');
+  const html = `<ul${idAttribute}${classAttribute}${otherAttributes}>${itemsHtml}</ul>`;
+  return html;
+}
+
+export function convertMenuList(node: List): string {
+  const idAttribute = buildIdAttributeString(node);
+  const classAttribute = buildClassAttributeString(node);
+  const otherAttributes = buildOtherAttributesString(node);
+  const items = node.getItems()
+  const itemsHtml = items.map(item => convertListItem(item as ListItem)).join('');
+  const html = `<menu${idAttribute}${classAttribute}${otherAttributes}>${itemsHtml}</menu>`;
+  return html;
 }
 
 /**
@@ -117,11 +133,10 @@ ${itemsHtml}
  * ```
  */
 function convertListItem(item: ListItem): string {
-  const text = item.getText();
+  const text = item.getText()
   const blocks = item.getBlocks();
-
   // Item with nested blocks (paragraphs, code, sublists, etc.)
-  if (blocks && blocks.length > 0) {
+  if (blocks.length > 0) {
     const blocksHtml = blocks
       .map(block => {
         // Handle nested sublists
@@ -131,19 +146,13 @@ function convertListItem(item: ListItem): string {
         // Let the main converter handle other block types
         return block.convert();
       })
-      .join('\n');
-
-    return `  <li>
-    <p>${text}</p>
-${blocksHtml}
-  </li>`;
+      .join('');
+    return `<li>${text}${blocksHtml}</li>`;
   }
 
-  // Simple item:  wrap in <p> if text is long or contains HTML
-  if (text && (text.includes('<') || text.length > 80)) {
-    return `  <li><p>${text}</p></li>`;
+  if (text?.length > 80) {
+    return `<li><p>${text}</p></li>`;
   }
-
-  // Very simple item: no <p> wrapper needed
-  return `  <li>${text}</li>`;
+  // Very simple item
+  return `<li>${text}</li>`;
 }

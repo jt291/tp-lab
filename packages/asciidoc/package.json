@@ -4,13 +4,12 @@
   "description": "Version modifiée d'Asciidoctor.js avec HTML sémantique",
   "type": "module",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "module": "./dist/tp-asciidoc.js",
+  "types": "./dist/tp-asciidoc.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "types": "./dist/tp-asciidoc.d.ts",
+      "import": "./dist/tp-asciidoc.js"
     }
   },
   "files": [
@@ -38,13 +37,22 @@
   "license": "MIT",
   "dependencies": {
     "@asciidoctor/core": "^3.0.4",
-    "prettier": "^3.7.4"
+    "@shikijs/colorized-brackets": "^3.20.0",
+    "@shikijs/transformers": "^3.20.0",
+    "nanoid": "^5.1.6",
+    "prettier": "^3.7.4",
+    "shiki": "^3.20.0"
   },
   "devDependencies": {
+    "@shikijs/core": "^3.20.0",
+    "@shikijs/langs": "^3.20.0",
+    "@shikijs/themes": "^3.20.0",
+    "@shikijs/types": "^3.20.0",
     "@types/node": "^25.0.3",
     "@types/prettier": "^3.0.0",
     "@vitest/browser-playwright": "^4.0.16",
     "@vitest/coverage-istanbul": "4.0.16",
+    "glob": "^13.0.0",
     "happy-dom": "^20.0.11",
     "playwright": "^1.57.0",
     "typedoc": "^0.28.15",

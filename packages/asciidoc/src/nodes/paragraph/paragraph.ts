@@ -5,7 +5,7 @@
  * @category Nodes
  */
 
-import type { AbstractBlock } from '@asciidoctor/core';
+import type { AbstractBlock } from '../../libs/asciidoctor.js';
 import {
   buildClassAttributeString,
   buildIdAttributeString,
@@ -47,23 +47,15 @@ export function convertParagraph(node: AbstractBlock): string {
   const classAttribute = buildClassAttributeString(node);
   const otherAttributes = buildOtherAttributesString(node);
   const content = node.getContent();
-
-  // Collapsible paragraph (using HTML <details> element)
-  if (hasOption(node, 'collapsible')) {
-    const isOpen = hasOption(node, 'open');
-    const title = node.getTitle() || 'Details';
-
-    return `
-<details${isOpen ? ' open' : ''}>
-  <summary>${title}</summary>
-  <p${idAttribute}${classAttribute}${otherAttributes}>${content}</p>
-</details>`.trim();
+  const title = buildTitleMarkup(node);
+  const isOpen = hasOption(node, 'open');
+  const isCollapsible = hasOption(node, 'collapsible');
+  const defaultConversion = `<p${idAttribute}${classAttribute}${otherAttributes}>${content}</p>`;
+  const summary = isCollapsible ? title ?? "<summary>Details</summary>" : title;
+  if (title) {
+    const containerTag = isCollapsible ? 'details' : 'article';
+    const open = isCollapsible && isOpen ? ' open' : '';
+    return `<${containerTag}${open}>${summary}${defaultConversion}</${containerTag}>`;
   }
-
-  // Standard paragraph with optional title
-  const titleMarkup = buildTitleMarkup(node);
-
-  return `
-${titleMarkup}
-<p${idAttribute}${classAttribute}${otherAttributes}>${content}</p>`.trim();
+  return defaultConversion;
 }

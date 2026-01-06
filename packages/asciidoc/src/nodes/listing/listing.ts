@@ -5,7 +5,9 @@
  * @category Nodes
  */
 
-import type { AbstractBlock } from '@asciidoctor/core';
+
+import { codeToHtml, createHighlighter } from 'shiki';
+import type { AbstractBlock } from '../../libs/asciidoctor.js';
 import {
   buildClassAttributeString,
   buildIdAttributeString,
@@ -13,6 +15,30 @@ import {
   buildTitleMarkup,
   hasOption,
 } from '../../utilities/attributes.js';
+import { shikiHighlighter } from '../../utilities/shiki.js';
+
+const shikiThemes = {
+  light: 'light-plus',
+  dark: 'dark-plus',
+};
+
+const langs = [
+  'adoc', 'asciidoc', 
+  'bash', 
+  'css', 
+  'html', 
+  'javascript', 'js', 'json', 'jsx',
+  'md', 'markdown',
+  'plaintext', 'prolog', 'py', 'python',
+  'sql',
+  'ts', 'tsx', 'typescript',
+  'yaml',
+]
+
+const highlighter = await createHighlighter({
+  themes: [shikiThemes.light, shikiThemes.dark],
+  langs: langs,
+})
 
 /**
  * Converts an Asciidoctor listing block to semantic HTML.
@@ -67,41 +93,29 @@ import {
  * ```
  */
 export function convertListing(node: AbstractBlock): string {
+  const document = node.getDocument();
+  const style = node.getStyle();
   const idAttribute = buildIdAttributeString(node);
-  const title = buildTitleMarkup(node);
-  
-  // Get language for syntax highlighting
-  const language = node.getAttribute('language');
-  const codeClasses = language ? [`language-${language}`] : [];
-  
-  // Build class attribute for <code> element
-  const codeClassAttribute = codeClasses.length > 0 
-    ? ` class="${codeClasses.join(' ')}"` 
-    : '';
-  
-  // Build class attribute for <pre> element (includes roles but not language)
-  const preClassAttribute = buildClassAttributeString(node);
-  
-  // Exclude 'style' attribute as Asciidoctor adds it automatically
+  const classAttribute = buildClassAttributeString(node, style === 'source' ? ['highlight'] : []);
   const otherAttributes = buildOtherAttributesString(node, {}, ['style', 'language']);
-  
-  // Get content - Asciidoctor already escapes HTML
+  const title = buildTitleMarkup(node);
+  const language = node.getAttribute('language') || 'plaintext';
   const content = node.getContent() || '';
+  const theme = document.getAttribute("shiki-theme") || shikiThemes.dark; // Default to dark theme
+  const isOpen = hasOption(node, 'open');
+  const isCollapsible = hasOption(node, 'collapsible');
 
-  // Collapsible listing block (using HTML <details> element)
-  if (hasOption(node, 'collapsible')) {
-    const isOpen = hasOption(node, 'open');
-    const summaryTitle = node.getTitle() || 'Details';
-
-    return `
-<details${isOpen ? ' open' : ''}>
-  <summary>${summaryTitle}</summary>
-  <pre${idAttribute}${preClassAttribute}${otherAttributes}><code${codeClassAttribute}>${content}</code></pre>
-</details>`.trim();
+  const highlightedContent = shikiHighlighter(content, language, theme);
+  const defaultConversion = `<pre${idAttribute}${classAttribute}${otherAttributes}><code class="language-${language}">${highlightedContent}</code></pre>`;
+  if (title) {
+    const containerTag = isCollapsible ? 'details' : 'article';
+    const open = isCollapsible && isOpen ? ' open' : '';
+    const summary = title ?? "<summary>Details</summary>";
+    return `<${containerTag}${open}>${summary}${defaultConversion}</${containerTag}>`;
   }
-
-  // Standard listing block
-  return `
-${title}
-<pre${idAttribute}${preClassAttribute}${otherAttributes}><code${codeClassAttribute}>${content}</code></pre>`.trim();
+    const summary = title ?? "<summary>Details</summary>";
+    const open = isOpen ? ' open' : '';
+    
+  
+  return defaultConversion;
 }

@@ -1,17 +1,19 @@
 import { describe, it, expect } from 'vitest';
-import { convert } from '../../index.js';
+import { TpAsciidoc } from '../../tp-asciidoc.js';
+
+const engine = new TpAsciidoc();
 
 describe('"paragraph" node conversion', () => {
   it('should convert a simple paragraph', () => {
     const input = 'Hello world';
-    const output = convert(input);
+    const output =  engine.convert(input);
     expect(output).toContain('<p>Hello world</p>');
   });
 
   it('should handle id and class attributes', () => {
     const input = `[#myid.myclass]
 Hello world`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     expect(output).toContain('id="myid"');
     expect(output).toContain('class="myclass"');
   });
@@ -19,22 +21,22 @@ Hello world`;
   it('should handle custom attributes', () => {
     const input = `[data-test=value]
 Hello world`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     expect(output).toContain('data-test="value"');
   });
 
   it('should handle title', () => {
     const input = `.My Title
 Hello world`;
-    const output = convert(input);
-    expect(output).toContain('<h6>My Title</h6>');
+    const output =  engine.convert(input);
+    expect(output).toContain('<summary>My Title</summary>');
   });
 
   it('should convert collapsible paragraph (closed)', () => {
     const input = `[%collapsible]
 .Toggle me
 Hidden content`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     expect(output).toContain('<details>');
     expect(output).toContain('<summary>Toggle me</summary>');
     expect(output).toContain('Hidden content');
@@ -45,7 +47,7 @@ Hidden content`;
     const input = `[%collapsible%open]
 .Toggle me
 Visible content`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     expect(output).toContain('<details open>');
     expect(output).toContain('<summary>Toggle me</summary>');
   });
@@ -54,7 +56,7 @@ Visible content`;
     const input = `.Titre
 [#id.para%collapsible%open,attr1=value1,attr2=value2]
 Un petit paragraphe.`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     expect(output).toContain('<details open>');
     expect(output).toContain('<summary>Titre</summary>');
     expect(output).toContain('id="id"');

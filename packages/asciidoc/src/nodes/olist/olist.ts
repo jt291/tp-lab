@@ -5,7 +5,7 @@
  * @category Nodes
  */
 
-import type { List, ListItem } from '@asciidoctor/core';
+import type { List, ListItem } from '../../libs/asciidoctor.js';
 import {
   buildClassAttributeString,
   buildIdAttributeString,

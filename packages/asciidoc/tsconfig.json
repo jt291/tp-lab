@@ -15,7 +15,8 @@
     "outDir": "./dist",
     "rootDir": "./src"
   },
-  "types": ["vitest", "node"],
+  "types": ["vitest", "node", "vite/client"],
+  "typeRoots": ["./node_modules/@types", "./node_modules/@asciidoctor/core/types"],
   "include":  ["src/**/*"],
   "exclude": ["node_modules", "dist", "tests"]
 }

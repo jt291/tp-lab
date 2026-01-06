@@ -1,4 +1,4 @@
-import { convert } from '../dist/index.js';
+import { convert } from '../dist/tp-asciidoc.js';
 
 const input = `
 .Titre

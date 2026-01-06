@@ -1,0 +1,544 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asciidoc Conversion Comparison</title>
+  <style>
+    body {
+      width: 100%;
+    }
+    table {
+      display: block;
+      max-width: 100%;
+      margin: 0 auto 1rem;
+      border-collapse: collapse;
+      border-spacing: 0;
+      inline-size: fit-content;
+      overflow-x: auto;
+    }
+    table tr {
+      width: 100%;
+    }
+    caption {
+      margin-top: 0.5rem;
+      caption-side: bottom;
+      color: #656d76;
+      font-weight: 600;
+    }
+    tbody > tr:nth-child(2n) {
+      background: #f6f8fa;
+    }
+    th, td {
+      padding: 0.375rem 0.8125rem;
+      border: 1px solid #161b22;
+      vertical-align: top;
+    }
+    th {
+      border-color: #24292f;
+      background: #d0d7de;
+      font-weight: bold;
+    }
+    pre.shiki {
+      margin: 0;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      width: 300px;
+      white-space: pre;
+    }
+    details.demo-block {
+      display: block;
+      padding: 1rem;
+      border: 1px solid lightgray;
+      border-radius: 6px;
+      margin: 0 0 1rem;
+      & > summary {
+        cursor: pointer;
+        user-select: none;
+      }
+      & > summary:hover {
+        text-decoration: underline;
+      }
+    }
+  </style>
+</head>
+<body>
+  <article><summary>hello</summary><p>world !</p></article>
+
+  <table>
+    <caption>Asciidoc Conversion Comparison</caption>
+    <thead>
+      <tr>
+        <th>asciidoctor node</th>
+        <th>asciidoc</th>
+        <th>asciidoctor.js</th>
+        <th>tp-asciidoc</th>
+      </tr>
+    </thead>
+    <tbody><tr>
+    <td>paragraph</td>
+    <td><pre><code><pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#D4D4D4">.</span><span style="color:#569CD6;font-weight:bold">paragraph title</span></span>
+<span class="line"><span style="color:#569CD6;font-weight:bold">[#paragraph-id]</span></span>
+<span class="line"><span style="color:#D4D4D4">A simple paragraph.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D4D4D4">'''</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D4D4D4">Another paragraph.</span></span></code></pre></code></pre></td>
+    <td><pre class="shiki light-plus" style="background-color:#FFFFFF;color:#000000" tabindex="0"><code><span class="line"><span style="color:#800000">&#x3C;div</span><span style="color:#E50000"> id</span><span style="color:#000000">=</span><span style="color:#0000FF">"paragraph-id"</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"paragraph"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"title"</span><span style="color:#800000">></span><span style="color:#000000">paragraph title</span><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;p></span><span style="color:#000000">A simple paragraph.</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">&#x3C;hr</span><span style="color:#800000"> /></span></span>
+<span class="line"><span style="color:#800000">&#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"paragraph"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;p></span><span style="color:#000000">Another paragraph.</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"></span></code></pre><details class="demo-block"><summary>HTML rendering without CSS</summary><div id="paragraph-id" class="paragraph">
+  <div class="title">paragraph title</div>
+  <p>A simple paragraph.</p>
+</div>
+<hr />
+<div class="paragraph">
+  <p>Another paragraph.</p>
+</div>
+</details></td>
+    <td><pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span><span style="color:#D4D4D4">paragraph title</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">p</span><span style="color:#9CDCFE"> id</span><span style="color:#D4D4D4">=</span><span style="color:#CE9178">"paragraph-id"</span><span style="color:#808080">></span><span style="color:#D4D4D4">A simple paragraph.</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">p</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">hr</span><span style="color:#808080"> /></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">p</span><span style="color:#808080">></span><span style="color:#D4D4D4">Another paragraph.</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">p</span><span style="color:#808080">></span></span>
+<span class="line"></span></code></pre><details class="demo-block"><summary>HTML rendering without CSS</summary><summary>paragraph title</summary>
+<p id="paragraph-id">A simple paragraph.</p>
+<hr />
+<p>Another paragraph.</p>
+</details></td>
+  </tr><tr>
+    <td>ulist</td>
+    <td><pre><code><pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#D4D4D4">.</span><span style="color:#569CD6;font-weight:bold">ulist title</span></span>
+<span class="line"><span style="color:#569CD6;font-weight:bold">[#ulist-id]</span></span>
+<span class="line"><span style="color:#D4D4D4">* Item 1</span></span>
+<span class="line"><span style="color:#D4D4D4">* Item 2</span></span>
+<span class="line"><span style="color:#D4D4D4">* Item 3</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D4D4D4">'''</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D4D4D4">.</span><span style="color:#569CD6;font-weight:bold">nested ulist title</span></span>
+<span class="line"><span style="color:#D4D4D4">* Item 1</span></span>
+<span class="line"><span style="color:#D4D4D4">** Subitem 1</span></span>
+<span class="line"><span style="color:#D4D4D4">** Subitem 2</span></span>
+<span class="line"><span style="color:#D4D4D4">* Item 2</span></span>
+<span class="line"></span></code></pre></code></pre></td>
+    <td><pre class="shiki light-plus" style="background-color:#FFFFFF;color:#000000" tabindex="0"><code><span class="line"><span style="color:#800000">&#x3C;div</span><span style="color:#E50000"> id</span><span style="color:#000000">=</span><span style="color:#0000FF">"ulist-id"</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"ulist"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"title"</span><span style="color:#800000">></span><span style="color:#000000">ulist title</span><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;ul></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;li></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;p></span><span style="color:#000000">Item 1</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;/li></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;li></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;p></span><span style="color:#000000">Item 2</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;/li></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;li></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;p></span><span style="color:#000000">Item 3</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;/li></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;/ul></span></span>
+<span class="line"><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">&#x3C;hr</span><span style="color:#800000"> /></span></span>
+<span class="line"><span style="color:#800000">&#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"ulist"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"title"</span><span style="color:#800000">></span><span style="color:#000000">nested ulist title</span><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;ul></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;li></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;p></span><span style="color:#000000">Item 1</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"ulist"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">        &#x3C;ul></span></span>
+<span class="line"><span style="color:#800000">          &#x3C;li></span></span>
+<span class="line"><span style="color:#800000">            &#x3C;p></span><span style="color:#000000">Subitem 1</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">          &#x3C;/li></span></span>
+<span class="line"><span style="color:#800000">          &#x3C;li></span></span>
+<span class="line"><span style="color:#800000">            &#x3C;p></span><span style="color:#000000">Subitem 2</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">          &#x3C;/li></span></span>
+<span class="line"><span style="color:#800000">        &#x3C;/ul></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;/li></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;li></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;p></span><span style="color:#000000">Item 2</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;/li></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;/ul></span></span>
+<span class="line"><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"></span></code></pre><details class="demo-block"><summary>HTML rendering without CSS</summary><div id="ulist-id" class="ulist">
+  <div class="title">ulist title</div>
+  <ul>
+    <li>
+      <p>Item 1</p>
+    </li>
+    <li>
+      <p>Item 2</p>
+    </li>
+    <li>
+      <p>Item 3</p>
+    </li>
+  </ul>
+</div>
+<hr />
+<div class="ulist">
+  <div class="title">nested ulist title</div>
+  <ul>
+    <li>
+      <p>Item 1</p>
+      <div class="ulist">
+        <ul>
+          <li>
+            <p>Subitem 1</p>
+          </li>
+          <li>
+            <p>Subitem 2</p>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <p>Item 2</p>
+    </li>
+  </ul>
+</div>
+</details></td>
+    <td><pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span><span style="color:#D4D4D4">ulist title</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">ul</span><span style="color:#9CDCFE"> id</span><span style="color:#D4D4D4">=</span><span style="color:#CE9178">"ulist-id"</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;</span><span style="color:#569CD6">li</span><span style="color:#808080">></span><span style="color:#D4D4D4">Item 1</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;</span><span style="color:#569CD6">li</span><span style="color:#808080">></span><span style="color:#D4D4D4">Item 2</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;</span><span style="color:#569CD6">li</span><span style="color:#808080">></span><span style="color:#D4D4D4">Item 3</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">ul</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">hr</span><span style="color:#808080"> /></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span><span style="color:#D4D4D4">nested ulist title</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">ul</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">    &#x3C;</span><span style="color:#569CD6">p</span><span style="color:#808080">></span><span style="color:#D4D4D4">Item 1</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">p</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">    &#x3C;</span><span style="color:#569CD6">ul</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">      &#x3C;</span><span style="color:#569CD6">li</span><span style="color:#808080">></span><span style="color:#D4D4D4">Subitem 1</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">      &#x3C;</span><span style="color:#569CD6">li</span><span style="color:#808080">></span><span style="color:#D4D4D4">Subitem 2</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">    &#x3C;/</span><span style="color:#569CD6">ul</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;/</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;</span><span style="color:#569CD6">li</span><span style="color:#808080">></span><span style="color:#D4D4D4">Item 2</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">ul</span><span style="color:#808080">></span></span>
+<span class="line"></span></code></pre><details class="demo-block"><summary>HTML rendering without CSS</summary><summary>ulist title</summary>
+<ul id="ulist-id">
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ul>
+<hr />
+<summary>nested ulist title</summary>
+<ul>
+  <li>
+    <p>Item 1</p>
+    <ul>
+      <li>Subitem 1</li>
+      <li>Subitem 2</li>
+    </ul>
+  </li>
+  <li>Item 2</li>
+</ul>
+</details></td>
+  </tr><tr>
+    <td>olist</td>
+    <td><pre><code><pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#D4D4D4">.</span><span style="color:#569CD6;font-weight:bold">olist title</span></span>
+<span class="line"><span style="color:#569CD6;font-weight:bold">[#olist-id]</span></span>
+<span class="line"><span style="color:#D4D4D4">. Item 1</span></span>
+<span class="line"><span style="color:#D4D4D4">. Item 2</span></span>
+<span class="line"><span style="color:#D4D4D4">. Item 3</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D4D4D4">'''</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D4D4D4">.</span><span style="color:#569CD6;font-weight:bold">nested olist title</span></span>
+<span class="line"><span style="color:#D4D4D4">. Item 1</span></span>
+<span class="line"><span style="color:#D4D4D4">.. Subitem 1</span></span>
+<span class="line"><span style="color:#D4D4D4">.. Subitem 2</span></span>
+<span class="line"><span style="color:#D4D4D4">. Item 2</span></span>
+<span class="line"></span></code></pre></code></pre></td>
+    <td><pre class="shiki light-plus" style="background-color:#FFFFFF;color:#000000" tabindex="0"><code><span class="line"><span style="color:#800000">&#x3C;div</span><span style="color:#E50000"> id</span><span style="color:#000000">=</span><span style="color:#0000FF">"olist-id"</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"olist arabic"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"title"</span><span style="color:#800000">></span><span style="color:#000000">olist title</span><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;ol</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"arabic"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;li></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;p></span><span style="color:#000000">Item 1</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;/li></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;li></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;p></span><span style="color:#000000">Item 2</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;/li></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;li></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;p></span><span style="color:#000000">Item 3</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;/li></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;/ol></span></span>
+<span class="line"><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">&#x3C;hr</span><span style="color:#800000"> /></span></span>
+<span class="line"><span style="color:#800000">&#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"olist arabic"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"title"</span><span style="color:#800000">></span><span style="color:#000000">nested olist title</span><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;ol</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"arabic"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;li></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;p></span><span style="color:#000000">Item 1</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"olist loweralpha"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">        &#x3C;ol</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"loweralpha"</span><span style="color:#E50000"> type</span><span style="color:#000000">=</span><span style="color:#0000FF">"a"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">          &#x3C;li></span></span>
+<span class="line"><span style="color:#800000">            &#x3C;p></span><span style="color:#000000">Subitem 1</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">          &#x3C;/li></span></span>
+<span class="line"><span style="color:#800000">          &#x3C;li></span></span>
+<span class="line"><span style="color:#800000">            &#x3C;p></span><span style="color:#000000">Subitem 2</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">          &#x3C;/li></span></span>
+<span class="line"><span style="color:#800000">        &#x3C;/ol></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;/li></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;li></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;p></span><span style="color:#000000">Item 2</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;/li></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;/ol></span></span>
+<span class="line"><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"></span></code></pre><details class="demo-block"><summary>HTML rendering without CSS</summary><div id="olist-id" class="olist arabic">
+  <div class="title">olist title</div>
+  <ol class="arabic">
+    <li>
+      <p>Item 1</p>
+    </li>
+    <li>
+      <p>Item 2</p>
+    </li>
+    <li>
+      <p>Item 3</p>
+    </li>
+  </ol>
+</div>
+<hr />
+<div class="olist arabic">
+  <div class="title">nested olist title</div>
+  <ol class="arabic">
+    <li>
+      <p>Item 1</p>
+      <div class="olist loweralpha">
+        <ol class="loweralpha" type="a">
+          <li>
+            <p>Subitem 1</p>
+          </li>
+          <li>
+            <p>Subitem 2</p>
+          </li>
+        </ol>
+      </div>
+    </li>
+    <li>
+      <p>Item 2</p>
+    </li>
+  </ol>
+</div>
+</details></td>
+    <td><pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span><span style="color:#D4D4D4">olist title</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">ol</span><span style="color:#9CDCFE"> id</span><span style="color:#D4D4D4">=</span><span style="color:#CE9178">"olist-id"</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;</span><span style="color:#569CD6">li</span><span style="color:#808080">></span><span style="color:#D4D4D4">Item 1</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;</span><span style="color:#569CD6">li</span><span style="color:#808080">></span><span style="color:#D4D4D4">Item 2</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;</span><span style="color:#569CD6">li</span><span style="color:#808080">></span><span style="color:#D4D4D4">Item 3</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">ol</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">hr</span><span style="color:#808080"> /></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span><span style="color:#D4D4D4">nested olist title</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">ol</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">    &#x3C;</span><span style="color:#569CD6">p</span><span style="color:#808080">></span><span style="color:#D4D4D4">Item 1</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">p</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">    &#x3C;</span><span style="color:#569CD6">ol</span><span style="color:#9CDCFE"> type</span><span style="color:#D4D4D4">=</span><span style="color:#CE9178">"a"</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">      &#x3C;</span><span style="color:#569CD6">li</span><span style="color:#808080">></span><span style="color:#D4D4D4">Subitem 1</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">      &#x3C;</span><span style="color:#569CD6">li</span><span style="color:#808080">></span><span style="color:#D4D4D4">Subitem 2</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">    &#x3C;/</span><span style="color:#569CD6">ol</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;/</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;</span><span style="color:#569CD6">li</span><span style="color:#808080">></span><span style="color:#D4D4D4">Item 2</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">li</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">ol</span><span style="color:#808080">></span></span>
+<span class="line"></span></code></pre><details class="demo-block"><summary>HTML rendering without CSS</summary><summary>olist title</summary>
+<ol id="olist-id">
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ol>
+<hr />
+<summary>nested olist title</summary>
+<ol>
+  <li>
+    <p>Item 1</p>
+    <ol type="a">
+      <li>Subitem 1</li>
+      <li>Subitem 2</li>
+    </ol>
+  </li>
+  <li>Item 2</li>
+</ol>
+</details></td>
+  </tr><tr>
+    <td>literal</td>
+    <td><pre><code><pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#D4D4D4">.</span><span style="color:#569CD6;font-weight:bold">literal title</span></span>
+<span class="line"><span style="color:#569CD6;font-weight:bold">[#literal-id]</span></span>
+<span class="line"><span style="color:#D4D4D4">....</span></span>
+<span class="line"><span style="color:#D4D4D4">This is literal text</span></span>
+<span class="line"><span style="color:#D4D4D4">....</span></span>
+<span class="line"></span></code></pre></code></pre></td>
+    <td><pre class="shiki light-plus" style="background-color:#FFFFFF;color:#000000" tabindex="0"><code><span class="line"><span style="color:#800000">&#x3C;div</span><span style="color:#E50000"> id</span><span style="color:#000000">=</span><span style="color:#0000FF">"literal-id"</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"literalblock"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"title"</span><span style="color:#800000">></span><span style="color:#000000">literal title</span><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"content"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;pre></span><span style="color:#000000">This is literal text</span><span style="color:#800000">&#x3C;/pre></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"></span></code></pre><details class="demo-block"><summary>HTML rendering without CSS</summary><div id="literal-id" class="literalblock">
+  <div class="title">literal title</div>
+  <div class="content">
+    <pre>This is literal text</pre>
+  </div>
+</div>
+</details></td>
+    <td><pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span><span style="color:#D4D4D4">literal title</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">pre</span><span style="color:#9CDCFE"> id</span><span style="color:#D4D4D4">=</span><span style="color:#CE9178">"literal-id"</span><span style="color:#808080">></span><span style="color:#D4D4D4">This is literal text</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">pre</span><span style="color:#808080">></span></span>
+<span class="line"></span></code></pre><details class="demo-block"><summary>HTML rendering without CSS</summary><summary>literal title</summary>
+<pre id="literal-id">This is literal text</pre>
+</details></td>
+  </tr><tr>
+    <td>listing</td>
+    <td><pre><code><pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#D4D4D4">.</span><span style="color:#569CD6;font-weight:bold">listing title</span></span>
+<span class="line"><span style="color:#569CD6;font-weight:bold">[#listing-id]</span></span>
+<span class="line"><span style="color:#D4D4D4">----</span></span>
+<span class="line"><span style="color:#D4D4D4">Code goes here</span></span>
+<span class="line"><span style="color:#D4D4D4">----</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D4D4D4">'''</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D4D4D4">.</span><span style="color:#569CD6;font-weight:bold">source-code title</span></span>
+<span class="line"><span style="color:#569CD6;font-weight:bold">[</span><span style="color:#DCDCAA;font-weight:bold">source</span><span style="color:#569CD6;font-weight:bold">#source-id,javascript]</span></span>
+<span class="line"><span style="color:#D4D4D4">----</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D4D4D4">const x = 10;</span></span>
+<span class="line"><span style="color:#D4D4D4">console.log("x = ", x);</span></span>
+<span class="line"><span style="color:#D4D4D4">----</span></span>
+<span class="line"></span></code></pre></code></pre></td>
+    <td><pre class="shiki light-plus" style="background-color:#FFFFFF;color:#000000" tabindex="0"><code><span class="line"><span style="color:#800000">&#x3C;div</span><span style="color:#E50000"> id</span><span style="color:#000000">=</span><span style="color:#0000FF">"listing-id"</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"listingblock"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"title"</span><span style="color:#800000">></span><span style="color:#000000">listing title</span><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"content"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;pre></span><span style="color:#000000">Code goes here</span><span style="color:#800000">&#x3C;/pre></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">&#x3C;hr</span><span style="color:#800000"> /></span></span>
+<span class="line"><span style="color:#800000">&#x3C;div</span><span style="color:#E50000"> id</span><span style="color:#000000">=</span><span style="color:#0000FF">"source-id"</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"listingblock"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"title"</span><span style="color:#800000">></span><span style="color:#000000">source-code title</span><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"content"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;pre</span></span>
+<span class="line"><span style="color:#E50000">      class</span><span style="color:#000000">=</span><span style="color:#0000FF">"undefined highlight"</span></span>
+<span class="line"><span style="color:#800000">    >&#x3C;code</span><span style="color:#E50000"> data-lang</span><span style="color:#000000">=</span><span style="color:#0000FF">"javascript"</span><span style="color:#800000">>&#x3C;pre</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"shiki dark-plus"</span><span style="color:#E50000"> style</span><span style="color:#000000">=</span><span style="color:#0000FF">"background-color:#1E1E1E;color:#D4D4D4"</span><span style="color:#E50000"> tabindex</span><span style="color:#000000">=</span><span style="color:#0000FF">"0"</span><span style="color:#800000">>&#x3C;code>&#x3C;span</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"line"</span><span style="color:#800000">>&#x3C;/span></span></span>
+<span class="line"><span style="color:#800000">&#x3C;span</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"line"</span><span style="color:#800000">>&#x3C;span</span><span style="color:#E50000"> style</span><span style="color:#000000">=</span><span style="color:#0000FF">"color:#569CD6"</span><span style="color:#800000">></span><span style="color:#000000">const</span><span style="color:#800000">&#x3C;/span>&#x3C;span</span><span style="color:#E50000"> style</span><span style="color:#000000">=</span><span style="color:#0000FF">"color:#4FC1FF"</span><span style="color:#800000">></span><span style="color:#000000"> x</span><span style="color:#800000">&#x3C;/span>&#x3C;span</span><span style="color:#E50000"> style</span><span style="color:#000000">=</span><span style="color:#0000FF">"color:#D4D4D4"</span><span style="color:#800000">></span><span style="color:#000000"> = </span><span style="color:#800000">&#x3C;/span>&#x3C;span</span><span style="color:#E50000"> style</span><span style="color:#000000">=</span><span style="color:#0000FF">"color:#B5CEA8"</span><span style="color:#800000">></span><span style="color:#000000">10</span><span style="color:#800000">&#x3C;/span>&#x3C;span</span><span style="color:#E50000"> style</span><span style="color:#000000">=</span><span style="color:#0000FF">"color:#D4D4D4"</span><span style="color:#800000">></span><span style="color:#000000">;</span><span style="color:#800000">&#x3C;/span>&#x3C;/span></span></span>
+<span class="line"><span style="color:#800000">&#x3C;span</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"line"</span><span style="color:#800000">>&#x3C;span</span><span style="color:#E50000"> style</span><span style="color:#000000">=</span><span style="color:#0000FF">"color:#9CDCFE"</span><span style="color:#800000">></span><span style="color:#000000">console</span><span style="color:#800000">&#x3C;/span>&#x3C;span</span><span style="color:#E50000"> style</span><span style="color:#000000">=</span><span style="color:#0000FF">"color:#D4D4D4"</span><span style="color:#800000">></span><span style="color:#000000">.</span><span style="color:#800000">&#x3C;/span>&#x3C;span</span><span style="color:#E50000"> style</span><span style="color:#000000">=</span><span style="color:#0000FF">"color:#DCDCAA"</span><span style="color:#800000">></span><span style="color:#000000">log</span><span style="color:#800000">&#x3C;/span>&#x3C;span</span><span style="color:#E50000"> style</span><span style="color:#000000">=</span><span style="color:#0000FF">"color:#D4D4D4"</span><span style="color:#800000">></span><span style="color:#000000">(</span><span style="color:#800000">&#x3C;/span>&#x3C;span</span><span style="color:#E50000"> style</span><span style="color:#000000">=</span><span style="color:#0000FF">"color:#CE9178"</span><span style="color:#800000">></span><span style="color:#000000">"x = "</span><span style="color:#800000">&#x3C;/span>&#x3C;span</span><span style="color:#E50000"> style</span><span style="color:#000000">=</span><span style="color:#0000FF">"color:#D4D4D4"</span><span style="color:#800000">></span><span style="color:#000000">, </span><span style="color:#800000">&#x3C;/span>&#x3C;span</span><span style="color:#E50000"> style</span><span style="color:#000000">=</span><span style="color:#0000FF">"color:#9CDCFE"</span><span style="color:#800000">></span><span style="color:#000000">x</span><span style="color:#800000">&#x3C;/span>&#x3C;span</span><span style="color:#E50000"> style</span><span style="color:#000000">=</span><span style="color:#0000FF">"color:#D4D4D4"</span><span style="color:#800000">></span><span style="color:#000000">);</span><span style="color:#800000">&#x3C;/span>&#x3C;/span>&#x3C;/code>&#x3C;/pre>&#x3C;/code>&#x3C;/pre></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"></span></code></pre><details class="demo-block"><summary>HTML rendering without CSS</summary><div id="listing-id" class="listingblock">
+  <div class="title">listing title</div>
+  <div class="content">
+    <pre>Code goes here</pre>
+  </div>
+</div>
+<hr />
+<div id="source-id" class="listingblock">
+  <div class="title">source-code title</div>
+  <div class="content">
+    <pre
+      class="undefined highlight"
+    ><code data-lang="javascript"><pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"></span>
+<span class="line"><span style="color:#569CD6">const</span><span style="color:#4FC1FF"> x</span><span style="color:#D4D4D4"> = </span><span style="color:#B5CEA8">10</span><span style="color:#D4D4D4">;</span></span>
+<span class="line"><span style="color:#9CDCFE">console</span><span style="color:#D4D4D4">.</span><span style="color:#DCDCAA">log</span><span style="color:#D4D4D4">(</span><span style="color:#CE9178">"x = "</span><span style="color:#D4D4D4">, </span><span style="color:#9CDCFE">x</span><span style="color:#D4D4D4">);</span></span></code></pre></code></pre>
+  </div>
+</div>
+</details></td>
+    <td><pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span><span style="color:#D4D4D4">listing title</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">pre</span><span style="color:#9CDCFE"> id</span><span style="color:#D4D4D4">=</span><span style="color:#CE9178">"listing-id"</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;</span><span style="color:#569CD6">code</span><span style="color:#9CDCFE"> class</span><span style="color:#D4D4D4">=</span><span style="color:#CE9178">"language-plaintext"</span><span style="color:#9CDCFE"> data-lang</span><span style="color:#D4D4D4">=</span><span style="color:#CE9178">"plaintext"</span><span style="color:#808080">></span><span style="color:#D4D4D4">Code goes here</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">code</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">pre</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">hr</span><span style="color:#808080"> /></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span><span style="color:#D4D4D4">source-code title</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">summary</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">pre</span><span style="color:#9CDCFE"> id</span><span style="color:#D4D4D4">=</span><span style="color:#CE9178">"source-id"</span><span style="color:#9CDCFE"> class</span><span style="color:#D4D4D4">=</span><span style="color:#CE9178">"highlight"</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;</span><span style="color:#569CD6">code</span><span style="color:#9CDCFE"> class</span><span style="color:#D4D4D4">=</span><span style="color:#CE9178">"language-javascript"</span><span style="color:#9CDCFE"> data-lang</span><span style="color:#D4D4D4">=</span><span style="color:#CE9178">"javascript"</span><span style="color:#808080">></span><span style="color:#D4D4D4">const x = 10;</span></span>
+<span class="line"><span style="color:#D4D4D4">console.log("x = ", x);</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">code</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">pre</span><span style="color:#808080">></span></span>
+<span class="line"></span></code></pre><details class="demo-block"><summary>HTML rendering without CSS</summary><summary>listing title</summary>
+<pre id="listing-id">
+  <code class="language-plaintext" data-lang="plaintext">Code goes here</code>
+</pre>
+<hr />
+<summary>source-code title</summary>
+<pre id="source-id" class="highlight">
+  <code class="language-javascript" data-lang="javascript">const x = 10;
+console.log("x = ", x);</code>
+</pre>
+</details></td>
+  </tr><tr>
+    <td>quote</td>
+    <td><pre><code><pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#D4D4D4">.</span><span style="color:#569CD6;font-weight:bold">quote title</span></span>
+<span class="line"><span style="color:#D4D4D4;font-style:italic">[</span><span style="color:#DCDCAA;font-style:italic">quote</span><span style="color:#D4D4D4;font-style:italic">#quote-id,attribution,citation title and information]</span></span>
+<span class="line"><span style="color:#D4D4D4;font-style:italic">This is a quote.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D4D4D4;font-style:italic">'''</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D4D4D4;font-style:italic">.</span><span style="color:#569CD6;font-weight:bold">another-quote title</span></span>
+<span class="line"><span style="color:#D4D4D4;font-style:italic">[</span><span style="color:#DCDCAA;font-style:italic">quote</span><span style="color:#D4D4D4;font-style:italic">]</span></span>
+<span class="line"><span style="color:#D4D4D4;font-style:italic">____</span></span>
+<span class="line"><span style="color:#D4D4D4;font-style:italic">Another quote without attribution,</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#D4D4D4;font-style:italic">but with two paragraphs.</span></span>
+<span class="line"><span style="color:#D4D4D4;font-style:italic">____</span></span>
+<span class="line"></span></code></pre></code></pre></td>
+    <td><pre class="shiki light-plus" style="background-color:#FFFFFF;color:#000000" tabindex="0"><code><span class="line"><span style="color:#800000">&#x3C;div</span><span style="color:#E50000"> id</span><span style="color:#000000">=</span><span style="color:#0000FF">"quote-id"</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"quoteblock"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"title"</span><span style="color:#800000">></span><span style="color:#000000">quote title</span><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;blockquote></span><span style="color:#000000">This is a quote.</span><span style="color:#800000">&#x3C;/blockquote></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"attribution"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#0000FF">    &#x26;#8212;</span><span style="color:#000000"> attribution</span><span style="color:#800000">&#x3C;br</span><span style="color:#800000"> /></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;cite></span><span style="color:#000000">citation title and information</span><span style="color:#800000">&#x3C;/cite></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">&#x3C;hr</span><span style="color:#800000"> /></span></span>
+<span class="line"><span style="color:#800000">&#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"quoteblock"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"title"</span><span style="color:#800000">></span><span style="color:#000000">another-quote title</span><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;blockquote></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"paragraph"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;p></span><span style="color:#000000">Another quote without attribution,</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;div</span><span style="color:#E50000"> class</span><span style="color:#000000">=</span><span style="color:#0000FF">"paragraph"</span><span style="color:#800000">></span></span>
+<span class="line"><span style="color:#800000">      &#x3C;p></span><span style="color:#000000">but with two paragraphs.</span><span style="color:#800000">&#x3C;/p></span></span>
+<span class="line"><span style="color:#800000">    &#x3C;/div></span></span>
+<span class="line"><span style="color:#800000">  &#x3C;/blockquote></span></span>
+<span class="line"><span style="color:#800000">&#x3C;/div></span></span>
+<span class="line"></span></code></pre><details class="demo-block"><summary>HTML rendering without CSS</summary><div id="quote-id" class="quoteblock">
+  <div class="title">quote title</div>
+  <blockquote>This is a quote.</blockquote>
+  <div class="attribution">
+    &#8212; attribution<br />
+    <cite>citation title and information</cite>
+  </div>
+</div>
+<hr />
+<div class="quoteblock">
+  <div class="title">another-quote title</div>
+  <blockquote>
+    <div class="paragraph">
+      <p>Another quote without attribution,</p>
+    </div>
+    <div class="paragraph">
+      <p>but with two paragraphs.</p>
+    </div>
+  </blockquote>
+</div>
+</details></td>
+    <td><pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#F44747">quote</span><span style="color:#808080">></span><span style="color:#D4D4D4">This is a quote.</span><span style="color:#808080">&#x3C;/</span><span style="color:#F44747">quote</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#569CD6">hr</span><span style="color:#808080"> /></span></span>
+<span class="line"><span style="color:#808080">&#x3C;</span><span style="color:#F44747">quote</span></span>
+<span class="line"><span style="color:#808080">  >&#x3C;</span><span style="color:#569CD6">p</span><span style="color:#808080">></span><span style="color:#D4D4D4">Another quote without attribution,</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">p</span><span style="color:#808080">></span></span>
+<span class="line"><span style="color:#808080">  &#x3C;</span><span style="color:#569CD6">p</span><span style="color:#808080">></span><span style="color:#D4D4D4">but with two paragraphs.</span><span style="color:#808080">&#x3C;/</span><span style="color:#569CD6">p</span><span style="color:#808080">>&#x3C;/</span><span style="color:#F44747">quote</span></span>
+<span class="line"><span style="color:#808080">></span></span>
+<span class="line"></span></code></pre><details class="demo-block"><summary>HTML rendering without CSS</summary><quote>This is a quote.</quote>
+<hr />
+<quote
+  ><p>Another quote without attribution,</p>
+  <p>but with two paragraphs.</p></quote
+>
+</details></td>
+  </tr>
+    </tbody>
+  </table>
+  <script type="module">
+    import { codeToHtml } from 'https://esm.sh/shiki@3.0.0'
+  </script>
+</body>
+</html>

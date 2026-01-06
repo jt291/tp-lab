@@ -1,10 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { convert } from '../../index.js';
+import { TpAsciidoc } from '../../tp-asciidoc.js';
+
+const engine = new TpAsciidoc();
 
 describe('"quote" node conversion', () => {
   it('should convert a quote node', () => {
-    const input = ''; // input representing a quote asciidoc node
-    const output = convert(input);
-    expect(output).toBe('<quote>Example quote content</quote>')
+    const input = '\n____\nExample quote content\n____\n'; // input representing a quote asciidoc node
+    const output =  engine.convert(input);
+    console.log(output);
+    expect(output).toBe('<blockquote><p>Example quote content</p></blockquote>')
   });
 });

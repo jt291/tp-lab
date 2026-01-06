@@ -1,12 +1,14 @@
 import { describe, it, expect } from 'vitest';
-import { convert } from '../../index.js';
+import { TpAsciidoc } from '../../tp-asciidoc.js';
+
+const engine = new TpAsciidoc();
 
 describe('"olist" node conversion', () => {
   it('should convert a simple ordered list', () => {
     const input = `. a
 . b
 . c`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('<ol>');
     expect(output).toContain('<li>a</li>');
@@ -21,7 +23,7 @@ describe('"olist" node conversion', () => {
     const input = `[#mylist.custom]
 . item 1
 . item 2`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('id="mylist"');
     expect(output).toContain('class="custom"');
@@ -31,7 +33,7 @@ describe('"olist" node conversion', () => {
     const input = `[data-list=test]
 . item 1
 .  item 2`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('data-list="test"');
   });
@@ -40,16 +42,16 @@ describe('"olist" node conversion', () => {
     const input = `.My List Title
 . item 1
 . item 2`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
-    expect(output).toContain('<h6>My List Title</h6>');
+    expect(output).toContain('<summary>My List Title</summary>');
   });
 
   it('should handle start attribute', () => {
     const input = `[start=5]
 . item 5
 . item 6`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('start="5"');
   });
@@ -58,7 +60,7 @@ describe('"olist" node conversion', () => {
     const input = `[loweralpha]
 . item a
 . item b`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('<ol');
     expect(output).toContain('type="a"');
@@ -68,7 +70,7 @@ describe('"olist" node conversion', () => {
     const input = `[upperalpha]
 . item A
 . item B`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('type="A"');
   });
@@ -77,7 +79,7 @@ describe('"olist" node conversion', () => {
     const input = `[lowerroman]
 .  item i
 . item ii`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('type="i"');
   });
@@ -86,7 +88,7 @@ describe('"olist" node conversion', () => {
     const input = `[upperroman]
 . item I
 . item II`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('type="I"');
   });
@@ -96,7 +98,7 @@ describe('"olist" node conversion', () => {
 ..  a1
 .. a2
 . b`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toMatch(/<ol[^>]*>/); // Match <ol> with any attributes
     expect(output).toContain('<li>a');
@@ -109,7 +111,7 @@ describe('"olist" node conversion', () => {
     const input = `. *bold* text
 . _italic_ text
 .  \`code\` text`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('<strong>bold</strong>');
     expect(output).toContain('<em>italic</em>');
@@ -121,7 +123,7 @@ describe('"olist" node conversion', () => {
 .Toggle List
 . item 1
 . item 2`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('<details>');
     expect(output).toContain('<summary>Toggle List</summary>');
@@ -133,7 +135,7 @@ describe('"olist" node conversion', () => {
 .Toggle List
 . item 1
 .  item 2`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('<details open>');
     expect(output).toContain('<summary>Toggle List</summary>');
@@ -144,7 +146,7 @@ describe('"olist" node conversion', () => {
 [#liste.custom%collapsible%open,data-test=value,start=3]
 .  Troisième item
 . Quatrième item`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('id="liste"');
     expect(output).toContain('class="custom"');
@@ -158,7 +160,7 @@ describe('"olist" node conversion', () => {
     const input = `* Unordered item
 . Ordered item 1
 . Ordered item 2`;
-    const output = convert(input);
+    const output =  engine.convert(input);
     
     expect(output).toContain('<ul>');
     expect(output).toMatch(/<ol[^>]*>/); // Match <ol> with any attributes

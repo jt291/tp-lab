@@ -1,12 +1,14 @@
 import { describe, it, expect } from 'vitest';
-import { convert } from '../../index.js';
+import { TpAsciidoc } from '../../tp-asciidoc.js';
+
+const engine = new TpAsciidoc();
 
 describe('"literal" node conversion', () => {
   it('should convert a simple literal block', () => {
     const input = `.... 
 This is literal text
 ....`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toMatch(/<pre[^>]*>/);
     expect(output).toContain('This is literal text');
@@ -21,7 +23,7 @@ Line 1
     Indented line
         More indented
 .... `;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toMatch(/<pre[^>]*>/);
     expect(output).toContain('    Indented line');
@@ -34,7 +36,7 @@ Line 1
   <body>Hello & goodbye</body>
 </html>
 ....`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('&lt;html&gt;');
     expect(output).toContain('&lt;body&gt;');
@@ -47,7 +49,7 @@ Line 1
 ....
 $ ls -la
 ....`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('id="mycode"');
     expect(output).toContain('class="terminal"');
@@ -58,7 +60,7 @@ $ ls -la
 ....
 Plain text content
 ....`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('data-lang="text"');
   });
@@ -68,16 +70,16 @@ Plain text content
 ....
 Result:  Success
 ....`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
-    expect(output).toContain('<h6>Output Example</h6>');
+    expect(output).toContain('<summary>Output Example</summary>');
     expect(output).toMatch(/<pre[^>]*>/);
   });
 
   it('should handle literal block with indentation syntax', () => {
     const input = `    This is a literal paragraph
     with indentation`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toMatch(/<pre[^>]*>/);
     expect(output).toContain('This is a literal paragraph');
@@ -91,20 +93,20 @@ Second line after blank
 
 Third line
 ....`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('First line');
     expect(output).toContain('Second line after blank');
     expect(output).toContain('Third line');
   });
 
-  it('should convert collapsible literal block (closed)', () => {
+  it('should engine.convert collapsible literal block (closed)', () => {
     const input = `[%collapsible]
 .Show Configuration
 ....
 config.setting=value
 ....`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('<details>');
     expect(output).toContain('<summary>Show Configuration</summary>');
@@ -112,13 +114,13 @@ config.setting=value
     expect(output).not.toContain('details open');
   });
 
-  it('should convert collapsible literal block (open)', () => {
+  it('should engine.convert collapsible literal block (open)', () => {
     const input = `[%collapsible%open]
 .Debug Output
 ....
 ERROR: Something went wrong
 ....`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('<details open>');
     expect(output).toContain('<summary>Debug Output</summary>');
@@ -132,7 +134,7 @@ ERROR: Something went wrong
 [INFO] Server started
 [WARN] Low memory
 ....`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('id="log"');
     expect(output).toContain('class="output"');
@@ -147,7 +149,7 @@ ERROR: Something went wrong
 "Quotes" & 'apostrophes'
 <tags> and symbols:  @#$%
 ....`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     // Asciidoctor escapes <, >, & but not quotes in literal blocks
     expect(output).toContain('"Quotes"');
@@ -163,7 +165,7 @@ ERROR: Something went wrong
 _This should not be italic_
 \`This should not be code\`
 ....`;
-    const output = convert(input);
+    const output = engine.convert(input);
     
     expect(output).toContain('*This should not be bold*');
     expect(output).toContain('_This should not be italic_');

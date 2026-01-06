@@ -1,0 +1,50 @@
+{
+  "name": "tp",
+  "version": "0.0.1",
+  "description": "Library of web components for educational purposes.",
+  "main": "./dist/tp-lab.js",
+  "type": "module",
+  "module": "./dist/tp-lab.js",
+  "types": "./dist/tp-lab.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/tp-lab.d.ts",
+      "import": "./dist/tp-lab.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite dev",
+    "build": "tsc && vite build",
+    "test": "vitest --project browser --browser",
+    "test:coverage": "vitest run --coverage",
+    "api": "typedoc",
+    "api:serve": "pnpm api && npx serve api",
+    "clean": "rm -rf dist api"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@iconify-json/tabler": "^1.2.26",
+    "@types/node": "^25.0.3",
+    "@unocss/preset-icons": "^66.5.12",
+    "@unocss/vite": "^66.5.12",
+    "@vitest/browser-playwright": "^4.0.16",
+    "@vitest/coverage-istanbul": "4.0.16",
+    "glob": "^13.0.0",
+    "happy-dom": "^20.0.11",
+    "playwright": "^1.57.0",
+    "typedoc": "^0.28.15",
+    "typescript": "^5.9.3",
+    "unocss": "^66.5.12",
+    "vite": "^7.3.0",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.0.16"
+  },
+  "dependencies": {
+    "lit": "^3.3.2"
+  }
+}

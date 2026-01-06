@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./tp-asciidoc.css">
+</head>
+<body>
+  <div id="essai">hello</div>
+  <script type="module">
+    import { TpAsciidoc } from './tp-asciidoc.js';
+    const div = document.getElementById('essai');
+    const asciidocContent = `= Essai Asciidoc
+
+== Paragraphes
+=== Paragraphe simple
+Ceci est un paragraphe.
+
+=== Paragraphe avec titre et attributs
+.Titre du paragraphe
+[#id.classe,data-attr="value"]
+Ceci est un autre paragraphe avec un titre et des attributs.
+
+=== Paragraphe Lorem Ipsum
+lorem::[]
+
+== Codes
+=== Code simple
+----
+console.log('hello, world!');
+----
+
+=== Code avec titre et attributs
+.Code javascript
+[source#id.classe,javascript,attr=value]
+----
+function f(x) {
+  if (x < 0) {
+    return -x;
+  } else {
+    return 2*x;
+  }
+}
+----
+
+=== Code rétractable avec titre et attributs
+.Code javascript rétractable
+[source#id.classe%collapsible,javascript,data-attr="value"]
+----
+function f(x) {
+  if (x < 0) {
+    return -x;
+  } else {
+    return 2*x;
+  }
+}
+----
+
+== Listes à puces
+=== Liste simple
+* Vienoiseries
+* Macarons
+* Pain perdu
+
+=== Liste avec titre et attributs
+.Une liste de desserts
+[#desserts.classe,data-attr="value"]
+* Vienoiseries
+* Macarons
+* Pain perdu
+
+=== Listes imbriquées
+* Vienoiseries
+** Croissant
+** Éclair
+** Tartelettes
+*** Aux mûres
+*** Aux framboises
+*** Aux fraises
+*** Pain au chocolat
+* Macarons
+* Pain perdu
+
+=== Menus
+[menu]
+* Vienoiseries
+[menu] 
+** Croissant
+** Éclair
+** Tartelettes
+[menu] 
+*** Aux mûres
+*** Aux framboises
+*** Aux fraises
+*** Pain au chocolat
+* Macarons
+* Pain perdu
+
+`
+    const engine = new TpAsciidoc();
+    const html = engine.convert(asciidocContent);
+    div.innerHTML = html;
+  </script>
+</body>
+</html>

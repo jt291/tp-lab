@@ -1,0 +1,8 @@
+= essai
+:source-highlighter: highlightjs
+
+[source,js]
+----
+console.log('hello')
+----
+

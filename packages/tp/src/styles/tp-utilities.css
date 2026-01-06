@@ -1,0 +1,100 @@
+@layer tp-utilities {
+  /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  //  Side label
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+  /* Side label utility */
+  .tp-side-label {
+    --label-width: 10ch;
+
+    display: grid;
+    grid: auto / var(--label-width) 1fr;
+    align-items: center;
+    gap: 0.25em 1em;
+
+    &::part(label) {
+      max-width: none;
+      text-align: end;
+    }
+
+    &::part(description) {
+      grid-column-start: 2;
+      order: 3;
+      margin-block: 0;
+    }
+  }
+
+  /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  //  Form validation
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+  /* Valid */
+  .tp-user-valid,
+  .tp-force-valid {
+    color: var(--tp-constructive-text-colorful);
+
+    &::part(label),
+    &::part(description) {
+      color: var(--tp-constructive-text-colorful);
+    }
+
+    &::part(visual-box),
+    &:focus::part(visual-box) {
+      border-color: var(--tp-constructive-stroke-mid);
+      outline-color: var(--tp-constructive-stroke-mid);
+    }
+  }
+
+  /* Invalid */
+  .tp-user-invalid,
+  .tp-force-invalid {
+    color: var(--tp-destructive-text-colorful);
+
+    &::part(label),
+    &::part(description) {
+      color: var(--tp-destructive-text-colorful);
+    }
+
+    &::part(visual-box),
+    &:focus::part(visual-box) {
+      border-color: var(--tp-destructive-stroke-mid);
+      outline-color: var(--tp-destructive-stroke-mid);
+    }
+  }
+
+  /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  //  Visually hidden
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+  .tp-vh,
+  .tp-vh-focusable:not(:focus-within),
+  .tp-vh-label::part(label),
+  .tp-vh-description::part(description) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  //  Light/dark utilities
+  //
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+  /* Toggle content based on light/dark */
+  html:not(.tp-dark) .tp-if-dark,
+  html.tp-dark .tp-if-light,
+  .tp-dark .tp-if-light,
+  .tp-light .tp-if-dark {
+    display: none !important;
+  }
+}

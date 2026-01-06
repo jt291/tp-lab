@@ -6,6 +6,7 @@
  */
 
 import type { AbstractBlock } from '@asciidoctor/core';
+import { escapeHtml } from './strings.js';
 
 /**
  * Builds the id attribute string for an HTML element. 
@@ -95,7 +96,7 @@ export function buildOtherAttributesString(
   excludeAttributes:  string[] = []
 ): string {
   const allAttributes = { ...node.getAttributes(), ...additionalAttributes };
-  const defaultExclusions = ['id', 'role', 'title', '$positional'];
+  const defaultExclusions = ['id', 'role', 'style','title', '$positional'];
   const allExclusions = [...defaultExclusions, ...excludeAttributes];
   
   const attributesKeys = Object.keys(allAttributes).filter(
@@ -185,40 +186,11 @@ export function hasOption(node: AbstractBlock, option: string): boolean {
  * buildTitleMarkup(node, 'h5') // Returns: '<h5>My Block Title</h5>'
  * ```
  */
-export function buildTitleMarkup(node: AbstractBlock, tag = 'h6'): string {
-  if (! node.hasTitle()) {
+export function buildTitleMarkup(node: AbstractBlock, tag = 'summary'): string {
+  if (!node.hasTitle()) {
     return '';
   }
   const title = node.getCaptionedTitle();
   return `<${tag}>${escapeHtml(title)}</${tag}>`;
 }
 
-/**
- * Escapes HTML special characters to prevent XSS attacks.
- * 
- * @summary Converts HTML special characters to their entity equivalents. 
- * 
- * @param text - The text to escape
- * @returns The escaped text
- * 
- * @example
- * ```typescript
- * escapeHtml('<script>alert("xss")</script>')
- * // Returns: '&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;'
- * ```
- * 
- * @example
- * ```typescript
- * escapeHtml('Tom & Jerry') // Returns: 'Tom &amp; Jerry'
- * ```
- */
-function escapeHtml(text: string): string {
-  const map:  Record<string, string> = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"':  '&quot;',
-    "'": '&#039;',
-  };
-  return text. replace(/[&<>"']/g, char => map[char] || char);
-}

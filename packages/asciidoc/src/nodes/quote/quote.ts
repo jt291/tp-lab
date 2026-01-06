@@ -5,7 +5,7 @@
  * @category Nodes
  */
 
-import type { AbstractBlock } from '@asciidoctor/core';
+import type { AbstractBlock } from '../../libs/asciidoctor.js';
 import {
   buildClassAttributeString,
   buildIdAttributeString,
@@ -16,5 +16,5 @@ import {
 
 export function convertQuote(node: AbstractBlock): string {
   // TODO: Implement conversion logic for the `quote` node.
-  return `<quote>${node.getContent()}</quote>`;
+  return `<blockquote>${node.getContent()}</blockquote>`;
 }

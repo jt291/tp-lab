@@ -1,0 +1,26 @@
+  :host {
+    --border-color: var(--tp-neutral-stroke-softer);
+    --border-width: var(--tp-border-width);
+    --border-style: var(--tp-border-style);
+    --border-radius: var(--tp-border-radius-md);
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  /* Contained appearance */
+  :host([appearance='container']) {
+    border: calc(1*var(--border-width)) var(--border-style) var(--border-color);
+    border-radius: var(--tp-border-radius-md);
+    background-color: var(--tp-paper-color);
+    box-shadow: var(--tp-shadow-softer);
+  }
+
+  /* Separated appearance */
+  :host([appearance='separator']) {
+    gap: 1rem;
+  }
+
+  

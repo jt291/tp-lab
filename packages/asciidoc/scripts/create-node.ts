@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { capitalize } from '../src/utilities/strings.ts';
+import { capitalize } from '../src/utilities/strings.js';
 
 /**
  * Generate a new node structure for converting AsciiDoctor nodes.
