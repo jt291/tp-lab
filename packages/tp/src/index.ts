@@ -1,3 +1,10 @@
+/**
+ * Entry point for the TP Design System package.
+ * 
+ * @module
+ * @category Main
+ */
+
 import './styles/tp.css';
 import './styles/tp-reset.css';
 import './styles/tp-utilities.css';
@@ -8,6 +15,7 @@ import './styles/matcha.css';
 export { TpBase } from './components/base/base.js';
 
 // Utility components
+export { TpIcon } from './components/icon/icon.js';
 export { TpLorem } from './components/lorem/lorem.js';
 
 // UI components

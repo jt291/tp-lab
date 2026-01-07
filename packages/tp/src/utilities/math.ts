@@ -2,7 +2,7 @@
  * Utility functions for handling mathematical operations.
  * 
  * @module
- * @category Utilities
+ * @category Utility functions
  */
 
 import { nanoid } from 'nanoid'; // Unique ID generator

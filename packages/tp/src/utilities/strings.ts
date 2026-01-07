@@ -2,7 +2,7 @@
  * Utility functions for handling strings manipulation.
  * 
  * @module
- * @category Utilities
+ * @category Utility functions
  */
 
 /**

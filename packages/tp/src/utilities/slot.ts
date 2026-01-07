@@ -1,3 +1,10 @@
+/**
+ * Slot Utility Functions.
+ * 
+ * @module
+ * @category Utility functions
+ */
+
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
 /** Reactive controller that determines when slots are available. */

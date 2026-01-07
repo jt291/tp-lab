@@ -26,9 +26,9 @@
   "categoryOrder": [
     "Main",
     "Question components",
-    "UI Components",
+    "UI components",
     "Utility components",
-    "Utilities",
+    "Utility functions",
     "Base",
     "*"
   ],

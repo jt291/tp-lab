@@ -1,3 +1,10 @@
+/**
+ * Audio Utility Functions.
+ * 
+ * @module
+ * @category Utility functions
+ */
+
 // audio.ts
 let audioContext: AudioContext | null = null;
 

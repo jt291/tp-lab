@@ -1,4 +1,4 @@
-  @keyframes shakeY {
+@keyframes shakeY {
   from,
   to {
     transform: translate3d(0, 0, 0);
@@ -15,4 +15,19 @@
   animation-name: shakeY;
   animation-duration: 0.6s;
   animation-timing-function: ease-in-out;
+}
+
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg); /* Start at 0° */
+  }
+  to {
+    transform: rotate(360deg); /* End at 360° */
+  }
+}
+
+:host(.rotating) {
+  animation: spin 2s linear infinite; /* Rotation infinie */
+  transform-origin: center; /* Origine de rotation au centre */
 }

@@ -1,3 +1,10 @@
+/**
+ * Details Component.
+ * 
+ * @module
+ * @category UI components
+ */
+
 // lit
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { html, unsafeCSS } from 'lit';
@@ -32,7 +39,8 @@ import detailsStyles from './details.css?inline';
 @customElement('tp-details')
 export class TpDetails extends TpBase {
   /** Component styles */
-  static styles: CSSResultGroup = [ super.styles, unsafeCSS(detailsStyles) ];
+  // biome-ignore lint/style/noUnusedTemplateLiteral: <explanation>
+  static styles: CSSResultGroup = [ super.styles, unsafeCSS(detailsStyles), unsafeCSS(`@unocss-placeholder`) ];
 
   private _open = false;
 

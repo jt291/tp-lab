@@ -1,3 +1,10 @@
+/**
+ * Time Utility Functions.
+ * 
+ * @module
+ * @category Utility functions
+ */
+
 export function secondsToHMS(totalSeconds: number): string {
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);

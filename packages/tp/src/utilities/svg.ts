@@ -2,7 +2,7 @@
  * Utility functions for handling SVG operations.
  * 
  * @module
- * @category Utilities
+ * @category Utility functions
  */
 
 

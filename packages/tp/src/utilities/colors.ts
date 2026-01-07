@@ -1,3 +1,10 @@
+/**
+ * Colors Utility Functions.
+ * 
+ * @module
+ * @category Utility functions
+ */
+
 export const colors = {
   red: "#ef5655",
   orange: "#f08039",

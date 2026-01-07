@@ -5,7 +5,6 @@ import path from 'node:path';
 import { glob } from 'glob'
 import dts from 'vite-plugin-dts';
 import UnoCSS from 'unocss/vite';
-import { presetIcons } from 'unocss';
 
 const entries = [
   './src/index.ts',

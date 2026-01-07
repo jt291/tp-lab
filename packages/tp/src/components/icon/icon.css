@@ -1,0 +1,13 @@
+@keyframes spin {
+  from {
+    transform: rotate(0deg); /* Start at 0° */
+  }
+  to {
+    transform: rotate(360deg); /* End at 360° */
+  }
+}
+
+.rotating {
+  animation: spin 2s linear infinite; /* Rotation infinie */
+  transform-origin: center; /* Origine de rotation au centre */
+}

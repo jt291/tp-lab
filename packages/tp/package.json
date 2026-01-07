@@ -20,7 +20,7 @@
     "build": "tsc && vite build",
     "test": "vitest --project browser --browser",
     "test:coverage": "vitest run --coverage",
-    "api": "typedoc",
+    "api": "typedoc --entryPoints ./src --categorizeByGroup --out ./api",
     "api:serve": "pnpm api && npx serve api",
     "clean": "rm -rf dist api"
   },
@@ -30,6 +30,7 @@
   "devDependencies": {
     "@iconify-json/tabler": "^1.2.26",
     "@types/node": "^25.0.3",
+    "@unocss/preset-attributify": "^66.5.12",
     "@unocss/preset-icons": "^66.5.12",
     "@unocss/vite": "^66.5.12",
     "@vitest/browser-playwright": "^4.0.16",

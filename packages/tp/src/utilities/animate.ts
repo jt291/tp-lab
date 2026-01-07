@@ -1,4 +1,11 @@
 /**
+ * Animate Utility Functions.
+ * 
+ * @module
+ * @category Utility functions
+ */
+
+/**
  * Applies a class to the specified element to animate it. The class is removed after the animation finishes or is
  * canceled, then the promise resolves. If applying the class doesn't trigger an animation, the promise resolves
  * immediately.

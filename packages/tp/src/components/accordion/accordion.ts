@@ -1,3 +1,11 @@
+/**
+ * Accordion Component.
+ * 
+ * @module
+ * @category UI components
+ */
+
+// lit
 import type { CSSResultGroup, PropertyValues } from 'lit';
 import { html, unsafeCSS } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
